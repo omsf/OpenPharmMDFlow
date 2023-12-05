@@ -1,0 +1,43 @@
+# generated using pymatgen
+data_H3C3O
+_symmetry_space_group_name_H-M   Pna2_1
+_cell_length_a   10.46960000
+_cell_length_b   9.40620000
+_cell_length_c   5.66570000
+_cell_angle_alpha   90.00000000
+_cell_angle_beta   90.00000000
+_cell_angle_gamma   90.00000000
+_symmetry_Int_Tables_number   33
+_chemical_formula_structural   H3C3O
+_chemical_formula_sum   'H24 C24 O8'
+_cell_volume   557.95332877
+_cell_formula_units_Z   8
+loop_
+ _symmetry_equiv_pos_site_id
+ _symmetry_equiv_pos_as_xyz
+  1  'x, y, z'
+  2  '-x, -y, z+1/2'
+  3  '-x+1/2, y+1/2, z+1/2'
+  4  'x+1/2, -y+1/2, z'
+loop_
+ _atom_site_type_symbol
+ _atom_site_label
+ _atom_site_symmetry_multiplicity
+ _atom_site_fract_x
+ _atom_site_fract_y
+ _atom_site_fract_z
+ _atom_site_occupancy
+  H  H0  4  0.02657926  0.09429728  0.11568114  1.0
+  H  H1  4  0.04146506  0.60682096  0.23548267  1.0
+  H  H2  4  0.06328796  0.72444545  0.88225232  1.0
+  H  H3  4  0.12585018  0.42438015  0.01637572  1.0
+  H  H4  4  0.21748034  0.95499818  0.23366596  1.0
+  H  H5  4  0.22828954  0.18007418  0.89284256  1.0
+  C  C6  4  0.01976497  0.21506217  0.43715485  1.0
+  C  C7  4  0.07079265  0.11247409  0.28587018  1.0
+  C  C8  4  0.07610270  0.23938787  0.65718942  1.0
+  C  C9  4  0.17831899  0.03397334  0.35302431  1.0
+  C  C10  4  0.18361767  0.16083613  0.72315159  1.0
+  C  C11  4  0.23456035  0.05751062  0.57355047  1.0
+  O  O12  4  0.02724121  0.33806173  0.80997039  1.0
+  O  O13  4  0.16110394  0.48159608  0.14608580  1.0
