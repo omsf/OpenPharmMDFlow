@@ -8,9 +8,9 @@ assignees: ''
 ---
 
 <!--
-Example: 
+Example:
 As a {blank} I want to {blank} so that I can {blank}
 
 * Clarification
-* Another point 
+* Another point
 -->
