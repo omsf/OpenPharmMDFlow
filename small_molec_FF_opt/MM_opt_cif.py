@@ -14,8 +14,11 @@ from ase.io import write
 from openff.toolkit.topology import Molecule
 from openff.toolkit.topology import Topology
 from openmm import *
-from openmm.app import *
-from openmm.unit import *
+from openmm.app import Simulation
+from openmm.app import VerletIntegrator
+from openmm.unit import angstrom
+from openmm.unit import kilojoule_per_mole
+from openmm.unit import nanometer
 from openmmforcefields.generators import EspalomaTemplateGenerator
 from openmmforcefields.generators import GAFFTemplateGenerator
 from openmmforcefields.generators import SMIRNOFFTemplateGenerator
@@ -322,7 +325,6 @@ if __name__ == "__main__":
     # Determine the ewald cutoffs by looking at all crystals:
     for f in os.listdir("cif"):
         print(f)
-        test = {"count": [], "parmtag": []}
         file = os.path.join("cif", f)
         xtalID = file.replace("cif/", "")
 
