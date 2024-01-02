@@ -15,7 +15,6 @@ repos:
   - id: trailing-whitespace
   - id: name-tests-test
   - id: debug-statements
-  - id: double-quote-string-fixer
 - repo: https://github.com/asottile/pyupgrade
   rev: v3.15.0
   hooks:
