@@ -7,6 +7,6 @@ Right now the project is at [phase 0](https://github.com/orgs/omsf/projects/2), 
 ```
 ├── inputs
 │   ├── mAb  # Inputs for mAb workflows (excipients go here too)
-│   └── small_molecule  # Inputs for small molecule workflows 
+│   └── small_molecule  # Inputs for small molecule workflows
 └── README.md
 ```
