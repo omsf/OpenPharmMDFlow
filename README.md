@@ -1,3 +1,5 @@
+[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/omsf/OpenPharmMDFlow/main.svg)](https://results.pre-commit.ci/latest/github/omsf/OpenPharmMDFlow/main)
+
 # OpenPharmMDFlow
 
 Right now the project is at [phase 0](https://github.com/orgs/omsf/projects/2), where most of the work will be done by creating issues which we will organize on our phase 0 project board.
