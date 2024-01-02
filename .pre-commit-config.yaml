@@ -1,23 +1,21 @@
-# See https://pre-commit.com for more information
-# See https://pre-commit.com/hooks.html for more hooks
 ci:
   autoupdate_schedule: "quarterly"
 repos:
 - repo: https://github.com/pre-commit/pre-commit-hooks
- rev: v4.5.0
- hooks:
- - id: check-added-large-files
- - id: check-case-conflict
- - id: check-executables-have-shebangs
- - id: check-symlinks
- - id: check-toml
- - id: check-yaml
- - id: destroyed-symlinks
- - id: end-of-file-fixer
- - id: trailing-whitespace
- - id: name-tests-test
- - id: debug-statements
- - id: double-quote-string-fixer
+  rev: v4.5.0
+  hooks:
+  - id: check-added-large-files
+  - id: check-case-conflict
+  - id: check-executables-have-shebangs
+  - id: check-symlinks
+  - id: check-toml
+  - id: check-yaml
+  - id: destroyed-symlinks
+  - id: end-of-file-fixer
+  - id: trailing-whitespace
+  - id: name-tests-test
+  - id: debug-statements
+  - id: double-quote-string-fixer
 - repo: https://github.com/asottile/pyupgrade
   rev: v3.15.0
   hooks:
