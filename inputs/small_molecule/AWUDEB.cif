@@ -1,28 +1,28 @@
-####################################################################### 
-# 
-# This file contains crystal structure data downloaded from the 
-# Cambridge Structural Database (CSD) hosted by the Cambridge 
+#######################################################################
+#
+# This file contains crystal structure data downloaded from the
+# Cambridge Structural Database (CSD) hosted by the Cambridge
 # Crystallographic Data Centre (CCDC).
-# 
-# Full information about CCDC data access policies and citation 
-# guidelines are available at http://www.ccdc.cam.ac.uk/access/V1 
-# 
-# Audit and citation data items may have been added by the CCDC. 
-# Please retain this information to preserve the provenance of 
-# this file and to allow appropriate attribution of the data. 
-# 
+#
+# Full information about CCDC data access policies and citation
+# guidelines are available at http://www.ccdc.cam.ac.uk/access/V1
+#
+# Audit and citation data items may have been added by the CCDC.
+# Please retain this information to preserve the provenance of
+# this file and to allow appropriate attribution of the data.
+#
 #######################################################################
 
 data_020413c
 _audit_block_doi                 10.5517/cc7vnb1
 _database_code_depnum_ccdc_archive 'CCDC 234153'
-_audit_update_record             
+_audit_update_record
 ;
 2004-03-18 deposited with the CCDC.	2023-03-03 downloaded from the CCDC.
 ;
 
 _audit_creation_method           SHELXL-97
-_chemical_name_systematic        
+_chemical_name_systematic
 ;
 ?
 ;
@@ -81,7 +81,7 @@ _exptl_absorpt_correction_T_min  0.9666
 _exptl_absorpt_correction_T_max  0.9865
 _exptl_absorpt_process_details   SADABS
 
-_exptl_special_details           
+_exptl_special_details
 ;
 ?
 ;
@@ -121,7 +121,7 @@ _computing_structure_refinement  'SHELXL-97 (Sheldrick, 1997)'
 _computing_molecular_graphics    'Bruker SHELXTL'
 _computing_publication_material  'Bruker SHELXTL'
 
-_refine_special_details          
+_refine_special_details
 ;
 Refinement of F^2^ against ALL reflections.  The weighted R-factor wR and
 goodness of fit S are based on F^2^, conventional R-factors R are based
@@ -135,7 +135,7 @@ factors based on ALL data will be even larger.
 _refine_ls_structure_factor_coef Fsqd
 _refine_ls_matrix_type           full
 _refine_ls_weighting_scheme      calc
-_refine_ls_weighting_details     
+_refine_ls_weighting_details
 'calc w=1/[\s^2^(Fo^2^)+(0.0532P)^2^+0.2730P] where P=(Fo^2^+2Fc^2^)/3'
 _atom_sites_solution_primary     direct
 _atom_sites_solution_secondary   difmap
@@ -236,7 +236,7 @@ C11 0.054(2) 0.0375(19) 0.0399(19) -0.0037(15) 0.0151(17) -0.0056(17)
 C12 0.0426(19) 0.0414(19) 0.0342(17) 0.0017(16) 0.0048(15) -0.0053(15)
 C13 0.0359(18) 0.042(2) 0.0392(17) 0.0062(16) 0.0056(15) 0.0015(14)
 
-_geom_special_details            
+_geom_special_details
 ;
 All esds (except the esd in the dihedral angle between two l.s. planes)
 are estimated using the full covariance matrix.  The cell esds are taken
@@ -397,4 +397,3 @@ _diffrn_measured_fraction_theta_full 0.996
 _refine_diff_density_max         0.179
 _refine_diff_density_min         -0.217
 _refine_diff_density_rms         0.053
-

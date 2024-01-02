@@ -2,13 +2,13 @@
 #######################################################################
 #
 #                 Cambridge Crystallographic Hata Centre
-#                                CCHC 
+#                                CCHC
 #
 #######################################################################
 #
-# If this CIF has been generated from an entry in the Cambridge 
-# Structural Hatabase, then it will include bibliographic, chemical, 
-# crystal, experimental, refinement or atomic coordinate data resulting 
+# If this CIF has been generated from an entry in the Cambridge
+# Structural Hatabase, then it will include bibliographic, chemical,
+# crystal, experimental, refinement or atomic coordinate data resulting
 # from the CCHC's data processing and validation procedures.
 #
 #######################################################################
