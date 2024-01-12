@@ -43,5 +43,5 @@ Martini system from antibody.pdb
 
 [ molecules ]
 ; name        number
-molecule_0          $nmab  
+molecule_0          $nmab
 W    $nwater" > system.top

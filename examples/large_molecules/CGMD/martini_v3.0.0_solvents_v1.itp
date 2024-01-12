@@ -1,11 +1,11 @@
 ;;;;; Martini 3 - Database of solvents
-;;;;;  
+;;;;;
 ;;;;; File updated on 2021-03-29
 ;;;;;
 ;;;;; Version: 3.0.0_v1
-;;;;;                                                                                     
-;;;;; This collection contains the models included as part of the Martini 3 publication: 
-;;;;;   PCT Souza, et al., Nat. Methods, 2021. DOI: 10.1038/s41592-021-01098-3 
+;;;;;
+;;;;; This collection contains the models included as part of the Martini 3 publication:
+;;;;;   PCT Souza, et al., Nat. Methods, 2021. DOI: 10.1038/s41592-021-01098-3
 
 ;;;;;; WATER (representing 4 molecules)
 
@@ -25,7 +25,7 @@
 
 [atoms]
 ; id 	type 	resnr 	residu 	atom 	cgnr 	charge
-  1     SC6 	1 	DMS 	S1 	1 	0 
+  1     SC6 	1 	DMS 	S1 	1 	0
   2     TP6 	1 	DMS 	O2	2 	0
 
 [bonds]
@@ -52,7 +52,7 @@
 
 [atoms]
 ; id 	type 	resnr 	residu 	atom 	cgnr 	charge
-  1     SC2 	1 	HEX 	C1 	1 	0 
+  1     SC2 	1 	HEX 	C1 	1 	0
   2     SC2 	1 	HEX 	C2	2 	0
 
 [bonds]
@@ -67,7 +67,7 @@
 
 [atoms]
 ; id 	type 	resnr 	residu 	atom 	cgnr 	charge
-  1       C1 	1 	OCT 	C1 	1 	0 
+  1       C1 	1 	OCT 	C1 	1 	0
   2       C1 	1 	OCT 	C2	2 	0
 
 [bonds]
@@ -82,9 +82,9 @@
 
 [atoms]
 ; id 	type 	resnr 	residu 	atom 	cgnr 	charge
-  1       C1 	1 	DOD 	C1 	1 	0 
+  1       C1 	1 	DOD 	C1 	1 	0
   2       C1 	1 	DOD 	C2	2 	0
-  3       C1 	1 	DOD 	C3	3 	0 
+  3       C1 	1 	DOD 	C3	3 	0
 
 [bonds]
 ; i j 	funct 	length 	force.c.
@@ -103,10 +103,10 @@
 
 [atoms]
 ; id 	type 	resnr 	residu 	atom 	cgnr 	charge
-  1 	C1 	1 	HD 	C1 	1 	0 
-  2 	C1 	1 	HD 	C2 	2 	0 
-  3 	C1 	1 	HD 	C3 	3 	0 
-  4 	C1 	1 	HD 	C4 	4 	0 
+  1 	C1 	1 	HD 	C1 	1 	0
+  2 	C1 	1 	HD 	C2 	2 	0
+  3 	C1 	1 	HD 	C3 	3 	0
+  4 	C1 	1 	HD 	C4 	4 	0
 
 [bonds]
 ; i j 	funct 	length 	force.c.
@@ -116,8 +116,8 @@
 
 [angles]
 ; i j k 	funct 	angle 	force.c.
-  1 2 3 	2 	180.0 	35.0 
-  2 3 4 	2 	180.0 	35.0 
+  1 2 3 	2 	180.0 	35.0
+  2 3 4 	2 	180.0 	35.0
 
 ;;;;;;;;; ALKENES
 
@@ -129,7 +129,7 @@
 
 [atoms]
 ; id 	type 	resnr 	residu 	atom 	cgnr 	charge
-  1     SC4 	1 	HXE 	D1 	1 	0 
+  1     SC4 	1 	HXE 	D1 	1 	0
   2     SC2 	1 	HXE 	C2	2 	0
 
 [bonds]
@@ -145,7 +145,7 @@
 
 [atoms]
 ; id 	type 	resnr 	residu 	atom 	cgnr 	charge
-  1       C4 	1 	OCE 	D1 	1 	0 
+  1       C4 	1 	OCE 	D1 	1 	0
   2       C1 	1 	OCE 	C2	2 	0
 
 [bonds]
@@ -160,9 +160,9 @@
 
 [atoms]
 ; id 	type 	resnr 	residu 	atom 	cgnr 	charge
-  1       C4 	1 	DOE 	D1 	1 	0 
+  1       C4 	1 	DOE 	D1 	1 	0
   2       C1 	1 	DOE 	C2	2 	0
-  3       C1 	1 	DOE 	C3	3 	0 
+  3       C1 	1 	DOE 	C3	3 	0
 
 [bonds]
 ; i j 	funct 	length 	force.c.
@@ -183,7 +183,7 @@
 
 [atoms]
 ; id 	type 	resnr 	residu 	atom 	cgnr 	charge
-  1     SC6 	1 	HXY 	T1 	1 	0 
+  1     SC6 	1 	HXY 	T1 	1 	0
   2     SC2 	1 	HXY 	C2	2 	0
 
 [bonds]
@@ -198,7 +198,7 @@
 
 [atoms]
 ; id 	type 	resnr 	residu 	atom 	cgnr 	charge
-  1       C6 	1 	OCY 	T1 	1 	0 
+  1       C6 	1 	OCY 	T1 	1 	0
   2       C1 	1 	OCY 	C2	2 	0
 
 [bonds]
@@ -215,7 +215,7 @@
 
 [atoms]
 ; id 	type 	resnr 	residu 	atom 	cgnr 	charge
-  1     SC4 	1 	HXD 	D1 	1 	0 
+  1     SC4 	1 	HXD 	D1 	1 	0
   2     SC4 	1 	HXD 	D2	2 	0
 
 [bonds]
@@ -230,10 +230,10 @@
 
 [atoms]
 ; id 	type 	resnr 	residu 	atom 	cgnr 	charge
-  1 	C1h	1 	OCD	C1 	1 	0 
-  2 	C5h 	1 	OCD	C2 	2 	0 
-  3 	C5h 	1 	OCD	C3 	3 	0 
-  4 	C1h	1 	OCD	C4 	4 	0 
+  1 	C1h	1 	OCD	C1 	1 	0
+  2 	C5h 	1 	OCD	C2 	2 	0
+  3 	C5h 	1 	OCD	C3 	3 	0
+  4 	C1h	1 	OCD	C4 	4 	0
 
 [bonds]
 ; i j 	funct 	length 	force.c.
@@ -243,8 +243,8 @@
 
 [angles]
 ; i j k 	funct 	angle 	force.c.
-  1 2 3 	2 	100.0 	10.0 
-  2 3 4 	2 	100.0 	10.0 
+  1 2 3 	2 	100.0 	10.0
+  2 3 4 	2 	100.0 	10.0
 
 ;;;;;;;;; HALOALKANES
 
@@ -258,7 +258,7 @@
 ; id 	type 	resnr 	residu 	atom 	cgnr 	charge
   1 	X3h 	1 	DCE 	CX 	1 	0
 
-;;;;;; CHLOROFORM 
+;;;;;; CHLOROFORM
 
 [moleculetype]
 ; molname 	nrexcl
@@ -266,7 +266,7 @@
 
 [atoms]
 ; id 	type 	resnr 	residu 	atom 	cgnr 	charge
-  1 	X2 	1 	CLF 	CX 	1 	0 
+  1 	X2 	1 	CLF 	CX 	1 	0
 
 ;;;;;; TETRACHLOROMETHANE
 
@@ -276,7 +276,7 @@
 
 [atoms]
 ; id 	type 	resnr 	residu 	atom 	cgnr 	charge
-  1 	X1 	1 	TCM 	CX 	1 	0 
+  1 	X1 	1 	TCM 	CX 	1 	0
 
 ;;;;;; TRICHLOROETHYLENE
 
@@ -286,7 +286,7 @@
 
 [atoms]
 ; id 	type 	resnr 	residu 	atom 	cgnr 	charge
-  1 	X3h 	1 	TCE 	CX 	1 	0 
+  1 	X3h 	1 	TCE 	CX 	1 	0
 
 ;;;;;; 2,2,2-TRIFLUOROETHANOL
 
@@ -296,8 +296,8 @@
 
 [atoms]
 ; id  type  resnr       residu      atom  cgnr  charge
-  1    TP1d   1         TFE   CO    1     0  ;  
-  2    SX4e   1         TFE   CX    2     0  ; 
+  1    TP1d   1         TFE   CO    1     0  ;
+  2    SX4e   1         TFE   CX    2     0  ;
 
 [bonds]
 ; i j       funct       length      force.c.
@@ -353,8 +353,8 @@
 
 [atoms]
 ; id 	type 	resnr 	residu 	atom 	cgnr 	charge
-  1 	TC2	1 	BTO 	C1 	1 	0 
-  2 	SP1 	1 	BTO	O2 	2 	0  
+  1 	TC2	1 	BTO 	C1 	1 	0
+  2 	SP1 	1 	BTO	O2 	2 	0
 
 [bonds]
 ; i j 	funct 	length 	force.c.
@@ -368,8 +368,8 @@
 
 [atoms]
 ; id    type    resnr   residu  atom    cgnr    charge
-  1 	C1 	1 	HXO 	C1 	1 	0 
-  2 	SP1 	1 	HXO 	R2 	2 	0  
+  1 	C1 	1 	HXO 	C1 	1 	0
+  2 	SP1 	1 	HXO 	R2 	2 	0
 
 [bonds]
 ; i j 	funct 	length 	force.c.
@@ -383,8 +383,8 @@
 
 [atoms]
 ; id    type    resnr   residu  atom    cgnr    charge
-  1 	C1 	1 	HPO 	C1 	1 	0 
-  2 	P1 	1 	HPO 	R2 	2 	0  
+  1 	C1 	1 	HPO 	C1 	1 	0
+  2 	P1 	1 	HPO 	R2 	2 	0
 
 [bonds]
 ; i j 	funct 	length 	force.c.
@@ -398,9 +398,9 @@
 
 [atoms]
 ; id 	type 	resnr 	residu 	atom 	cgnr 	charge
-  1     SC2 	1 	OCO 	C1 	1 	0 
+  1     SC2 	1 	OCO 	C1 	1 	0
   2     SC2 	1 	OCO 	C2	2 	0
-  3     SP1 	1 	OCO 	PC	3 	0 
+  3     SP1 	1 	OCO 	PC	3 	0
 
 [bonds]
 ; i j 	funct 	length 	force.c.
@@ -414,7 +414,7 @@
 
 ;;;;;;;;; ETHERS
 
-;;;;;; DIETHYL ETHER 
+;;;;;; DIETHYL ETHER
 
 [moleculetype]
 ; molname 	nrexcl
@@ -424,7 +424,7 @@
 ; id 	type 	resnr 	residu 	atom 	cgnr 	charge
   1 	 N2 	1 	ETH 	CO 	1 	0
 
-;;;;;; DIISOPROPYL ETHER 
+;;;;;; DIISOPROPYL ETHER
 
 [moleculetype]
 ; molname 	nrexcl
@@ -432,9 +432,9 @@
 
 [atoms]
 ; id 	type 	resnr 	residu 	atom 	cgnr 	charge
-  1     TC3 	1 	DISH 	C1 	1 	0 
+  1     TC3 	1 	DISH 	C1 	1 	0
   2     SN3ar	1 	DISH 	O2	2 	0
-  3     TC3 	1 	DISH 	C3	3 	0 
+  3     TC3 	1 	DISH 	C3	3 	0
 
 [bonds]
 
@@ -453,8 +453,8 @@
 
 [atoms]
 ; id    type    resnr   residu  atom    cgnr    charge
-  1 	SN3ar 	1 	DXE 	R1 	1 	0 
-  2 	SN3ar 	1 	DXE 	R2 	2 	0  
+  1 	SN3ar 	1 	DXE 	R1 	1 	0
+  2 	SN3ar 	1 	DXE 	R2 	2 	0
 
 [bonds]
 ; i j 	funct 	length 	force.c.
@@ -468,9 +468,9 @@
 
 [atoms]
 ; id    type    resnr   residu  atom    cgnr    charge
-  1 	SN3ar	1 	TXE 	R1 	1 	0 
-  2 	SN3ar	1 	TXE 	R2 	2 	0  
-  3 	SN3ar	1 	TXE 	R2 	3 	0  
+  1 	SN3ar	1 	TXE 	R1 	1 	0
+  2 	SN3ar	1 	TXE 	R2 	2 	0
+  3 	SN3ar	1 	TXE 	R2 	3 	0
 
 [bonds]
 ; i j 	funct 	length 	force.c.
@@ -491,9 +491,9 @@
 
 [atoms]
 ; id 	type 	resnr 	residu 	atom 	cgnr 	charge
-  1     TC3 	1 	DISS 	C1 	1 	0 
+  1     TC3 	1 	DISS 	C1 	1 	0
   2     SC6	1 	DISS 	S2	2 	0
-  3     TC3 	1 	DISS 	C3	3 	0 
+  3     TC3 	1 	DISS 	C3	3 	0
 
 [bonds]
 
@@ -526,7 +526,7 @@
 ; id 	type 	resnr 	residu 	atom 	cgnr 	charge
   1 	 N4ah	1 	BTN 	CO 	1 	0
 
-;;;;;; ACETYLACETONE 
+;;;;;; ACETYLACETONE
 
 [moleculetype]
 ; molname       nrexcl
@@ -534,8 +534,8 @@
 
 [atoms]
 ; id    type    resnr   residu  atom    cgnr    charge
-  1 	SN5a 	1 	ANN 	R1 	1 	0 
-  2 	SN5a 	1 	ANN 	R2 	2 	0  
+  1 	SN5a 	1 	ANN 	R1 	1 	0
+  2 	SN5a 	1 	ANN 	R2 	2 	0
 
 [bonds]
 ; i j 	funct 	length 	force.c.
@@ -549,8 +549,8 @@
 
 [atoms]
 ; id    type    resnr   residu  atom    cgnr    charge
-  1 	C2 	1 	HXN 	C1 	1 	0 
-  2 	SN6a 	1 	HXN 	R2 	2 	0  
+  1 	C2 	1 	HXN 	C1 	1 	0
+  2 	SN6a 	1 	HXN 	R2 	2 	0
 
 [bonds]
 ; i j 	funct 	length 	force.c.
@@ -564,8 +564,8 @@
 
 [atoms]
 ; id    type    resnr   residu  atom    cgnr    charge
-  1 	C2 	1 	HPN 	C1 	1 	0 
-  2 	N6a 	1 	HPN 	R2 	2 	0  
+  1 	C2 	1 	HPN 	C1 	1 	0
+  2 	N6a 	1 	HPN 	R2 	2 	0
 
 [bonds]
 ; i j 	funct 	length 	force.c.
@@ -581,8 +581,8 @@
 
 [atoms]
 ; id 	type 	resnr 	residu 	atom 	cgnr 	charge
-  1 	TC3	1 	BTA 	C1 	1 	0 
-  2 	SN6a 	1 	BTA	N2 	2 	0  
+  1 	TC3	1 	BTA 	C1 	1 	0
+  2 	SN6a 	1 	BTA	N2 	2 	0
 
 [bonds]
 ; i j 	funct 	length 	force.c.
@@ -596,8 +596,8 @@
 
 [atoms]
 ; id    type    resnr   residu  atom    cgnr    charge
-  1 	C1 	1 	HXA 	C1 	1 	0 
-  2 	SN6a 	1 	HXA 	R2 	2 	0  
+  1 	C1 	1 	HXA 	C1 	1 	0
+  2 	SN6a 	1 	HXA 	R2 	2 	0
 
 [bonds]
 ; i j 	funct 	length 	force.c.
@@ -611,8 +611,8 @@
 
 [atoms]
 ; id    type    resnr   residu  atom    cgnr    charge
-  1 	C1 	1 	HPA 	C1 	1 	0 
-  2 	N6a 	1 	HPA 	R2 	2 	0  
+  1 	C1 	1 	HPA 	C1 	1 	0
+  2 	N6a 	1 	HPA 	R2 	2 	0
 
 [bonds]
 ; i j 	funct 	length 	force.c.
@@ -638,8 +638,8 @@
 
 [atoms]
 ; id    type    resnr   residu  atom    cgnr    charge
-  1 	TC3 	1 	ETA 	R1 	1 	0 
-  2 	SN4a 	1 	ETA	R2 	2 	0  
+  1 	TC3 	1 	ETA 	R1 	1 	0
+  2 	SN4a 	1 	ETA	R2 	2 	0
 
 [bonds]
 ; i j 	funct 	length 	force.c.
@@ -653,8 +653,8 @@
 
 [atoms]
 ; id    type    resnr   residu  atom    cgnr    charge
-  1 	SC2 	1 	IBA 	R1 	1 	0 
-  2 	SN4a 	1 	IBA	R2 	2 	0  
+  1 	SC2 	1 	IBA 	R1 	1 	0
+  2 	SN4a 	1 	IBA	R2 	2 	0
 
 [bonds]
 ; i j 	funct 	length 	force.c.
@@ -668,8 +668,8 @@
 
 [atoms]
 ; id    type    resnr   residu  atom    cgnr    charge
-  1 	SC2 	1 	TBA 	R1 	1 	0 
-  2 	SN4a 	1 	TBA	R2 	2 	0  
+  1 	SC2 	1 	TBA 	R1 	1 	0
+  2 	SN4a 	1 	TBA	R2 	2 	0
 
 [bonds]
 ; i j 	funct 	length 	force.c.
@@ -683,8 +683,8 @@
 
 [atoms]
 ; id    type    resnr   residu  atom    cgnr    charge
-  1 	C2 	1 	NBA 	R1 	1 	0 
-  2 	SN4a 	1 	NBA	R2 	2 	0  
+  1 	C2 	1 	NBA 	R1 	1 	0
+  2 	SN4a 	1 	NBA	R2 	2 	0
 
 [bonds]
 ; i j 	funct 	length 	force.c.
@@ -700,7 +700,7 @@
 
 [atoms]
 ; id 	type 	resnr 	residu 	atom 	cgnr 	charge
-  1 	 N3r 	1 	 DEI	N1 	1 	0 
+  1 	 N3r 	1 	 DEI	N1 	1 	0
 
 ;;;;;; TRIMETHYLAMINE
 
@@ -730,7 +730,7 @@
 
 [atoms]
 ; id 	type 	resnr 	residu 	atom 	cgnr 	charge
-  1 	 SN3 	1 	 NDI	N1 	1 	0   
+  1 	 SN3 	1 	 NDI	N1 	1 	0
 
 ;;;;;; 1-BUTYLAMINE
 
@@ -740,8 +740,8 @@
 
 [atoms]
 ; id 	type 	resnr 	residu 	atom 	cgnr 	charge
-  1 	TC2	1 	BTI 	C1 	1 	0 
-  2 	SN6d 	1 	BTI	N2 	2 	0  
+  1 	TC2	1 	BTI 	C1 	1 	0
+  2 	SN6d 	1 	BTI	N2 	2 	0
 
 [bonds]
 ; i j 	funct 	length 	force.c.
@@ -755,8 +755,8 @@
 
 [atoms]
 ; id 	type 	resnr 	residu 	atom 	cgnr 	charge
-  1 	SC2	1 	PTI 	C1 	1 	0 
-  2 	SN6d 	1 	PTI	N2 	2 	0  
+  1 	SC2	1 	PTI 	C1 	1 	0
+  2 	SN6d 	1 	PTI	N2 	2 	0
 
 [bonds]
 ; i j 	funct 	length 	force.c.
@@ -770,8 +770,8 @@
 
 [atoms]
 ; id 	type 	resnr 	residu 	atom 	cgnr 	charge
-  1 	C1	1 	HXI 	C1 	1 	0 
-  2 	SN6d 	1 	HXI	N2 	2 	0  
+  1 	C1	1 	HXI 	C1 	1 	0
+  2 	SN6d 	1 	HXI	N2 	2 	0
 
 [bonds]
 ; i j 	funct 	length 	force.c.
@@ -785,8 +785,8 @@
 
 [atoms]
 ; id 	type 	resnr 	residu 	atom 	cgnr 	charge
-  1 	C1	1 	HPI 	C1 	1 	0 
-  2 	N6d 	1 	HPI	N2 	2 	0  
+  1 	C1	1 	HPI 	C1 	1 	0
+  2 	N6d 	1 	HPI	N2 	2 	0
 
 [bonds]
 ; i j 	funct 	length 	force.c.
@@ -800,9 +800,9 @@
 
 [atoms]
 ; id 	type 	resnr 	residu 	atom 	cgnr 	charge
-  1     SC2 	1 	OCI 	C1 	1 	0 
+  1     SC2 	1 	OCI 	C1 	1 	0
   2     SC2 	1 	OCI 	C2	2 	0
-  3     SN6d 	1 	OCI 	NC	3 	0 
+  3     SN6d 	1 	OCI 	NC	3 	0
 
 [bonds]
 ; i j 	funct 	length 	force.c.
