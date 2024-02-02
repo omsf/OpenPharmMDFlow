@@ -32,7 +32,7 @@ jobs:
           - "3.12"
         include:
           - os: "macos"
-            python-version: "3.12"
+            python-version: "3.11" # Need to get mdtraj osx 3.12 build
     steps:
       - uses: actions/checkout@v4
 
