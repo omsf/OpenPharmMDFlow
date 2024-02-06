@@ -1,5 +1,5 @@
 #############################################
-# Avant-garde Materials Simulation           
+# Avant-garde Materials Simulation
 #############################################
 
 data_g55
