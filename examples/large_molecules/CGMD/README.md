@@ -4,7 +4,7 @@ CG models for Large Molecule Assets
 ![NivoCG Image](anitbody-CG.png)
 
 ## Install
-First install martini_openmm by following instructions in `https://github.web.bms.com/PDModeling/martini_openmm/blob/master/tutorial/README.md`
+First install martini_openmm by following instructions in `https://github.com/maccallumlab/martini_openmm`
 Then,
 
 ```
@@ -48,7 +48,7 @@ python ../run_CG_simulation.py
 
 ## Run on cluster
 ```
-git clone https://github.web.bms.com/PDModeling/CGMD.git
+git clone {the repository}
 cd CGMD
 docker build -t gromacs_openmm:latest .
 docker tag gromacs_openmm bmset/gromacs_openmm:latest
