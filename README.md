@@ -1,3 +1,4 @@
+[![Documentation Status](https://readthedocs.org/projects/openpharmmdflow/badge/?version=latest)](https://openpharmmdflow.readthedocs.io/en/latest/?badge=latest)
 [![pre-commit.ci status](https://results.pre-commit.ci/badge/github/omsf/OpenPharmMDFlow/main.svg)](https://results.pre-commit.ci/latest/github/omsf/OpenPharmMDFlow/main)
 
 # OpenPharmMDFlow
