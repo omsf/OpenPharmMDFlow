@@ -18,7 +18,7 @@ def HXACAN_cif():
 
 
 @pytest.mark.parametrize(
-    "cif_file, should_load", [(HXACAN_cif, True), (AWUDEB_cif, False)]
+    "cif_file, should_load", [(HXACAN_cif, True), (AWUDEB_cif, True)]
 )
 def test_cif_loading_defaults(cif_file, should_load):
     if should_load:
