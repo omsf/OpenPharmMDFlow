@@ -1,6 +1,7 @@
 [build-system]
-requires = ["setuptools>=61.2"]
+requires = ["setuptools>=64", "setuptools_scm>=8"]
 build-backend = "setuptools.build_meta"
+include-package-data = true
 
 [project]
 name = "openpharmmdflow"
@@ -33,3 +34,6 @@ Source = "https://github.com/omsf/openpharmmdflow"
 
 [tool.setuptools]
 packages = ["openpharmmdflow"]
+
+[tool.setuptools_scm]
+version_file = "openpharmmdflow/_version.py"
