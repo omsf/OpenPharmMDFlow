@@ -45,9 +45,13 @@ def from_cif(path: str | os.PathLike) -> openff.toolkit.Molecule:
         raise RuntimeError("codcif2sdf is required to read cif")
     with tempfile.TemporaryDirectory() as td:
         out_path = f"{td}/out.sdf"
-        cmd_output = subprocess.run(
-            ["codcif2sdf", f"{path}", ">", out_path], capture_output=True, check=True
-        )
-        molecule = openff.toolkit.Molecule.from_file(out_path)
+        with open(f"{td}/out.sdf", "w") as f:
+            cmd_output = subprocess.run(
+                ["codcif2sdf", f"{path}"],
+                check=True,
+                env={"PATH": "/usr/bin/"},
+                stdout=f,
+            )
+            molecule = openff.toolkit.Molecule.from_file(out_path)
 
     return molecule
