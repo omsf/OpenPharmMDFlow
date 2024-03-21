@@ -4,7 +4,9 @@ Installation
 .. warning::
    This software is still in early developlment
 
-Install dependencies using micromamba:
+Install dependencies using Micromamba_:
+
+.. _Micromamba: https://mamba.readthedocs.io/en/latest/installation/micromamba-installation.html
 
 .. parsed-literal::
    micromamba create -n openpharmmdflow --file examples/mini_mvp/env.yaml
