@@ -1,6 +1,7 @@
 """
 Module for cif file operations
 """
+
 import os
 import shutil
 import subprocess
