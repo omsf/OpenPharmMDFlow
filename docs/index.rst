@@ -11,6 +11,7 @@ Welcome to openpharmmdflow's documentation!
    :caption: Contents:
 
    install
+   mini_mvp
 
 
 
