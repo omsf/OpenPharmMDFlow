@@ -251,3 +251,13 @@ $RECYCLE.BIN/
 
 # don't track generated file for version tracking
 openpharmmdflow/_version.py
+
+# force people to use -f when commiting new files
+*.pdb
+*.csv
+*.cif
+*.xyz
+*.sdf
+
+# Don't check container into source
+*.sif
