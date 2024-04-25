@@ -9,6 +9,8 @@ import tempfile
 
 import openff.toolkit
 
+from openpharmmdflow.apptainer.apptainer import GOODBOY
+
 
 def from_cif(path: str | os.PathLike) -> openff.toolkit.Molecule:
     """
@@ -27,13 +29,13 @@ def from_cif(path: str | os.PathLike) -> openff.toolkit.Molecule:
     Raises
     ------
     RuntimeError
-        If the required external tool 'codcif2sdf' is not found.
+        If the required external tool 'apptainer' is not found.
 
     Notes
     -----
-    This function utilizes the 'codcif2sdf' external tool to convert a CIF file
-    to a Structure Data File (SDF), and then reads the SDF file into an OpenFF
-    Toolkit Molecule object. Bond order is guessed.
+    This function utilizes the 'codcif2sdf' external tool inside an apptainer image
+    to convert a CIF file to a Structure Data File (SDF), and then reads the SDF file
+    into an OpenFF Toolkit Molecule object. Bond order is guessed.
 
     Examples
     --------
@@ -42,15 +44,18 @@ def from_cif(path: str | os.PathLike) -> openff.toolkit.Molecule:
     >>> molecule.visualize()
     """
 
-    if shutil.which("codcif2sdf") is None:
-        raise RuntimeError("codcif2sdf is required to read cif")
+    if shutil.which("apptainer") is None:
+        raise RuntimeError("apptainer is required to read cif")
+
+    # Download the apptainer image if it isn't in the cache
+    container_path = GOODBOY.fetch("cod-tools.sif")
+
     with tempfile.TemporaryDirectory() as td:
         out_path = f"{td}/out.sdf"
         with open(f"{td}/out.sdf", "w") as f:
             cmd_output = subprocess.run(
-                ["codcif2sdf", f"{path}"],
+                ["apptainer", "exec", container_path, "codcif2sdf", f"{path}"],
                 check=True,
-                env={"PATH": "/usr/bin/"},
                 stdout=f,
             )
             molecule = openff.toolkit.Molecule.from_file(out_path)
