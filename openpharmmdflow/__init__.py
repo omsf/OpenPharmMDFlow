@@ -4,3 +4,8 @@
 from .io.cif import from_cif
 
 __all__ = ["from_cif"]
+
+from . import _version
+
+# Add a "v" to the version number
+__version__ = f"v{_version.version}"
