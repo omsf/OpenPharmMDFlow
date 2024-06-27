@@ -5,15 +5,12 @@ RUN conda update -n base -c defaults conda
 # Install Python 3.8
 RUN conda install python=3.8
 
-RUN conda install -c conda-forge -y openmm cudatoolkit=10.0 mdtraj gromacs
-RUN conda install git
-RUN git clone https://github.web.bms.com/PDModeling/martini_openmm.git \
+RUN conda install -c conda-forge -c salilab -y git openmm cudatoolkit=10.0 mdtraj gromacs boost=1.73 dssp
+RUN git clone https://github.com/maccallumlab/martini_openmm.git \
     && cd martini_openmm \
     && python setup.py install \
     && cd ..
 RUN pip install vermouth==0.9.3
-RUN conda install -c conda-forge boost=1.73
-RUN conda install -c salilab dssp
 # Install build tools for DSSP, libcif++, and libmcfp
 #RUN apt-get update && apt-get install -y build-essential cmake
 
