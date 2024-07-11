@@ -17,13 +17,13 @@ default_nmab = 1
 nmab = int(sys.argv[1]) if len(sys.argv) > 1 else default_nmab
 default_box_size = 20
 box_size = int(sys.argv[2]) if len(sys.argv) > 2 else default_box_size
-
+antibody = "antibody.pdb"
 
 # run_martinize.sh
 command = [
     "martinize2",
     "-f",
-    "antibody.pdb",
+    antibody,
     "-o",
     "system.top",
     "-x",
