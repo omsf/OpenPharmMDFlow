@@ -1,3 +1,5 @@
+set -e
+
 mab="minimization-vac.gro"
 water="../water.gro"
 default_nmab=1
