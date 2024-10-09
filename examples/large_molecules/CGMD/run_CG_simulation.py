@@ -9,7 +9,8 @@ from openmm.unit import *
 
 def run(epsilon_r):
     platform = None  # Platform.getPlatformByName("OpenCL")
-    properties = {"Precision": "double"}
+    platform = Platform.getPlatformByName("OpenCL")
+    properties = {"Precision": "single"}
 
     conf = GromacsGroFile("system.gro")
     box_vectors = conf.getPeriodicBoxVectors()
@@ -35,7 +36,13 @@ def run(epsilon_r):
     integrator = LangevinIntegrator(310 * kelvin, 10.0 / picosecond, 20 * femtosecond)
     integrator.setRandomNumberSeed(0)
 
-    simulation = Simulation(top.topology, system, integrator, platform, properties)
+    # simulation = Simulation(top.topology, system, integrator, platform, properties)
+    simulation = Simulation(
+        top.topology,
+        system,
+        integrator,
+        platform,
+    )
 
     simulation.context.setPositions(conf.getPositions())
 
