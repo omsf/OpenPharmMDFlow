@@ -1,3 +1,4 @@
+import sys
 from importlib import resources
 
 import pytest
@@ -21,6 +22,7 @@ def TRICKY_cif():
     return IO_DATA_PATH / "2102215.cif"
 
 
+@pytest.mark.skipif(sys.platform.startswith("darwin"), reason="no cif reader for osx")
 @pytest.mark.parametrize(
     "cif_file, should_load",
     [(HXACAN_cif(), True), (AWUDEB_cif(), True), (TRICKY_cif(), False)],
