@@ -1,0 +1,85 @@
+name: "CI"
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+  schedule:
+    # At 07:00 UTC on Monday and Thursday.
+    - cron: "0 7 * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: "${{ github.workflow }}-${{ github.ref }}"
+  cancel-in-progress: true
+
+defaults:
+  run:
+    shell: bash -leo pipefail {0}
+
+jobs:
+  tests:
+    runs-on: ${{ matrix.os }}
+    name: "💻-${{matrix.os }} 🐍-${{ matrix.python-version }}"
+    strategy:
+      fail-fast: false
+      matrix:
+        os: ["ubuntu-latest"]
+        python-version:
+          - "3.11"
+          - "3.12"
+        include:
+          - os: "macos-latest"
+            python-version: "3.11" # Need to get mdtraj osx 3.12 build
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Get current date
+        id: date
+        run: echo "date=$(date +%Y-%m-%d)" >> "${GITHUB_OUTPUT}"
+
+      - name: "Setup Micromamba"
+        uses: mamba-org/setup-micromamba@v1
+        with:
+          environment-file: conda-envs/${{ matrix.os }}.yaml
+          environment-name: openpharmflow
+          cache-environment: true
+          cache-downloads: true
+          cache-environment-key: environment-${{ steps.date.outputs.date }}
+          cache-downloads-key: downloads-${{ steps.date.outputs.date }}
+          create-args: >-
+            nbval
+            pytest
+            pytest-cov
+            pytest-xdist
+            python=${{ matrix.python-version }}
+          init-shell: bash
+
+      - name: "Install"
+        run: python -m pip install --no-deps -e .
+
+      - name: "Environment Information"
+        run: |
+          micromamba info
+          micromamba list
+
+      # Can't run notebook tests on osx right now b/c of cif reader support
+      - name: "Run tests (osx)"
+        if: runner.os == 'macOS'
+        run: pytest -n logical --dist loadscope -v --cov=openpharmmdflow --cov-report=xml --durations=10
+
+      - name: "Run tests (linux)"
+        if: runner.os == 'Linux'
+        run: pytest -n logical --nbval-lax --dist loadscope -v --cov=openpharmmdflow --cov-report=xml --durations=10
+
+      - name: codecov-pr
+        if: ${{ github.repository == 'omsf/OpenPharmMDFlow'
+                && github.event_name == 'pull_request' }}
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: coverage.xml
+          fail_ci_if_error: False
+          verbose: True
