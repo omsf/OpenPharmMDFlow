@@ -65,8 +65,14 @@ jobs:
           micromamba info
           micromamba list
 
-      - name: "Run tests"
-        run: pytest -n auto --nbval-lax --dist loadscope -v --cov=openpharmmdflow --cov-report=xml --durations=10
+      # Can't run notebook tests on osx right now b/c of cif reader support
+      - name: "Run tests (osx)"
+        if: runner.os == 'macOS'
+        run: pytest -n logical --dist loadscope -v --cov=openpharmmdflow --cov-report=xml --durations=10
+
+      - name: "Run tests (linux)"
+        if: runner.os == 'Linux'
+        run: pytest -n logical --nbval-lax --dist loadscope -v --cov=openpharmmdflow --cov-report=xml --durations=10
 
       - name: codecov-pr
         if: ${{ github.repository == 'omsf/OpenPharmMDFlow'
