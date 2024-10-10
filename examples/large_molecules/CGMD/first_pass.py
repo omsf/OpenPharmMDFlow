@@ -1,3 +1,6 @@
+import os
+import subprocess
+import sys
 from sys import stdout
 
 import martini_openmm as martini
@@ -6,11 +9,146 @@ from openmm import *
 from openmm.app import *
 from openmm.unit import *
 
+# Parameters
+mab = "minimization-vac.gro"
+water = "../water.gro"
+default_nmab = 1
+nmab = int(sys.argv[1]) if len(sys.argv) > 1 else default_nmab
+default_box_size = 20
+box_size = int(sys.argv[2]) if len(sys.argv) > 2 else default_box_size
+antibody = "antibody.pdb"
+
+# run_martinize.sh
+command = [
+    "martinize2",
+    "-f",
+    antibody,
+    "-o",
+    "system.top",
+    "-x",
+    "antibody-CG.pdb",
+    "-merge",
+    "A,B,C,D",
+    "-cys",
+    "auto",
+    "-dssp",
+    "mkdssp",
+]
+
+subprocess.run(command, check=True)
+
+# Write system.top file
+system_top_content = f"""\
+#include "../martini_v3.0.0.itp"
+
+#include "molecule_0.itp"
+
+[ system ]
+; name
+Martini system from antibody.pdb
+
+[ molecules ]
+; name        number
+molecule_0    1
+"""
+with open("system.top", "w") as f:
+    f.write(system_top_content)
+
+# Run gmx commands
+subprocess.run(
+    [
+        "gmx",
+        "editconf",
+        "-f",
+        "antibody-CG.pdb",
+        "-d",
+        "2.0",
+        "-bt",
+        "cubic",
+        "-o",
+        "antibody-CG.gro",
+    ]
+)
+subprocess.run(
+    [
+        "gmx",
+        "grompp",
+        "-p",
+        "system.top",
+        "-f",
+        "../minimization.mdp",
+        "-c",
+        "antibody-CG.gro",
+        "-o",
+        "minimization-vac.tpr",
+    ]
+)
+subprocess.run(["gmx", "mdrun", "-deffnm", "minimization-vac", "-v"], check=True)
+
+# Insert mab molecules
+subprocess.run(
+    [
+        "gmx",
+        "insert-molecules",
+        "-ci",
+        mab,
+        "-nmol",
+        str(nmab),
+        "-o",
+        "mabs.gro",
+        "-box",
+        str(box_size),
+    ],
+    check=True,
+)
+
+# Solvate
+subprocess.run(
+    [
+        "gmx",
+        "solvate",
+        "-cp",
+        "mabs.gro",
+        "-cs",
+        water,
+        "-radius",
+        "0.21",
+        "-o",
+        "solvated.gro",
+    ],
+    check=True,
+)
+
+# Count water molecules
+with open("solvated.gro") as f:
+    nwater = sum(1 for line in f if line.startswith("W"))
+
+# Update system.top
+system_top_content = f"""\
+#include "../martini_v3.0.0.itp"
+#include "../martini_v3.0.0_solvents_v1.itp"
+
+#include "molecule_0.itp"
+
+[ system ]
+; name
+Martini system from antibody.pdb
+
+[ molecules ]
+; name        number
+molecule_0    {nmab}
+W    {nwater}
+"""
+with open("system.top", "w") as f:
+    f.write(system_top_content)
+
+# Copy solvated.gro to system.gro
+os.rename("solvated.gro", "system.gro")
+
 
 def run(epsilon_r):
     platform = None  # Platform.getPlatformByName("OpenCL")
-    platform = Platform.getPlatformByName("OpenCL")
-    properties = {"Precision": "single"}
+    properties = {"Precision": "double"}
 
     conf = GromacsGroFile("system.gro")
     box_vectors = conf.getPeriodicBoxVectors()
@@ -36,13 +174,7 @@ def run(epsilon_r):
     integrator = LangevinIntegrator(310 * kelvin, 10.0 / picosecond, 20 * femtosecond)
     integrator.setRandomNumberSeed(0)
 
-    # simulation = Simulation(top.topology, system, integrator, platform, properties)
-    simulation = Simulation(
-        top.topology,
-        system,
-        integrator,
-        platform,
-    )
+    simulation = Simulation(top.topology, system, integrator, platform, properties)
 
     simulation.context.setPositions(conf.getPositions())
 

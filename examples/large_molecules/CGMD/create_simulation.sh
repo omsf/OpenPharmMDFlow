@@ -1,3 +1,5 @@
+set -e
+
 mab="minimization-vac.gro"
 water="../water.gro"
 default_nmab=1
@@ -25,7 +27,8 @@ gmx mdrun -deffnm minimization-vac -v
 
 # now the mab molecules:
 gmx insert-molecules -ci $mab -nmol $nmab -o mabs.gro -box $box_size
-
+# .105 default
+# check -scale 0.57 ~ 1gcm:q
 gmx solvate -cp mabs.gro -cs $water -radius 0.21 -o solvated.gro
 nwater=$(grep "W" solvated.gro | wc -l)
 cp solvated.gro system.gro
