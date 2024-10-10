@@ -10,3 +10,4 @@ dependencies:
   # docs
   - nbsphinx
   - nbsphinx-link
+  - sphinx
