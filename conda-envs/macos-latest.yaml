@@ -1,0 +1,11 @@
+channels:
+  - conda-forge
+dependencies:
+  # core
+  - openff-interchange >=0.3.18
+  - pooch
+  # examples
+  - nglview
+  # docs
+  - nbsphinx
+  - nbsphinx-link

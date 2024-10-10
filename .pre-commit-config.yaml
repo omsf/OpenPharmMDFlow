@@ -15,6 +15,7 @@ repos:
   - id: trailing-whitespace
   - id: name-tests-test
   - id: debug-statements
+  - id: check-ast
 - repo: https://github.com/asottile/pyupgrade
   rev: v3.17.0
   hooks:
@@ -24,11 +25,12 @@ repos:
   rev: v1.11.2
   hooks:
   - id: mypy
-- repo: https://github.com/asottile/reorder-python-imports
-  rev: v3.13.0
+- repo: https://github.com/psf/black-pre-commit-mirror
+  rev: 24.4.1
   hooks:
-  - id: reorder-python-imports
-- repo: https://github.com/psf/black
-  rev: 24.8.0
-  hooks:
+  - id: black-jupyter
   - id: black
+- repo: https://github.com/pycqa/isort
+  rev: 5.13.2
+  hooks:
+  - id: isort
