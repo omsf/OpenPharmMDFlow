@@ -10,7 +10,7 @@ sphinx:
   fail_on_warning: true
 
 conda:
-  environment: examples/mini_mvp/env.yaml
+  environment: conda-envs/ubuntu-latest.yaml
 
 python:
   # Install our python package before building the docs
