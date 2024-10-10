@@ -9,7 +9,6 @@ from openmm import *
 from openmm.app import *
 from openmm.unit import *
 
-
 # Parameters
 mab = "minimization-vac.gro"
 water = "../water.gro"
