@@ -33,8 +33,6 @@ jobs:
         include:
           - os: "macos-latest"
             python-version: "3.11" # Need to get mdtraj osx 3.12 build
-          - os: "macos-14"
-            python-version: "3.11" # Need to get mdtraj osx 3.12 build
     steps:
       - uses: actions/checkout@v4
 
@@ -45,7 +43,7 @@ jobs:
       - name: "Setup Micromamba"
         uses: mamba-org/setup-micromamba@v1
         with:
-          environment-file: examples/mini_mvp/env.yaml
+          environment-file: conda-envs/${{ matrix.os }}.yaml
           environment-name: openpharmflow
           cache-environment: true
           cache-downloads: true
