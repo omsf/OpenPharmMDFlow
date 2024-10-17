@@ -43,4 +43,4 @@ profile = "black"
 force_single_line = "true"
 
 [tool.pytest.ini_options]
-ignore = "examples/small_molecules/bespoke-fit/"
+ignore = "examples/small_molecules/bespoke-fit/bespokefit.ipynb"
