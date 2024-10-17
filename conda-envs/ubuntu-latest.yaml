@@ -5,6 +5,8 @@ dependencies:
   - openff-interchange >=0.3.18
   - apptainer
   - pooch
+  - openff-bespokefit
+  - xtb-python
   # examples
   - nglview
   # docs
