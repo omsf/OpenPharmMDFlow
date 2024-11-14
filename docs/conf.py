@@ -12,7 +12,7 @@ author = "OMSF"
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions: list[str] = ["nbsphinx", "nbsphinx_link"]
+extensions: list[str] = ["nbsphinx", "nbsphinx_link", "sphinx.ext.autodoc"]
 
 templates_path = ["_templates"]
 exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
@@ -21,6 +21,8 @@ exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 # 'nbsphinx_custom_formats' (because it contains a function, class, or module object)
 # [config.cache]
 suppress_warnings = ["config.cache"]
+
+autodoc_mock_imports = ["openff", "pooch"]
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
