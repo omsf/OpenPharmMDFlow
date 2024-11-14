@@ -10,7 +10,7 @@ sphinx:
   fail_on_warning: true
 
 conda:
-  environment: conda-envs/ubuntu-latest.yaml
+  environment: conda-envs/docs.yaml
 
 python:
   # Install our python package before building the docs

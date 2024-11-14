@@ -1,0 +1,8 @@
+channels:
+  - conda-forge
+dependencies:
+  - nbsphinx
+  - sphinx
+  - ipython
+  - pip:
+    - nbsphinx-link >=1.3.1
