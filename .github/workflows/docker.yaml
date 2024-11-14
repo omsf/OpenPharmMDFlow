@@ -15,7 +15,7 @@ defaults:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: omsf/OpenPharmMDFlow
+  IMAGE_NAME: omsf/openpharmmdflow
   DOCKERFILE: examples/large_molecules/CGMD/Dockerfile
 
 jobs:

@@ -12,6 +12,8 @@ Welcome to openpharmmdflow's documentation!
 
    install
    mini_mvp
+   bespokefit
+   api
 
 
 

@@ -261,3 +261,9 @@ openpharmmdflow/_version.py
 
 # Don't check container into source
 *.sif
+
+# Folder created when running bespokefit
+bespoke-executor/
+
+# Folder for md experiments
+experiments/
