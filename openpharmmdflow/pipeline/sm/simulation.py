@@ -18,7 +18,7 @@ def create_simulation(
 ) -> openmm.app.Simulation:
     pdb_stride = simulate_config.pdb_stride
     trajectory_name = simulate_config.trajectory_name
-    temp = simulate_config.temp
+    temp = simulate_config.temp_k
     time_step_fs = simulate_config.time_step_fs
     pressure_bar = simulate_config.pressure_bar
 
