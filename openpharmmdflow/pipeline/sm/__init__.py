@@ -1,3 +1,4 @@
+from .pipeline import SmallMoleculePipeline
 from .pipeline_settings import BespokeExecutorConfig
 from .pipeline_settings import BespokefitConfig
 from .pipeline_settings import BespokeWorkflowFactoryConfig

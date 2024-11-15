@@ -9,7 +9,7 @@ from openff.toolkit import ForceField
 from openpharmmdflow.bespokefit import build_bespoke_workflow_factory
 from openpharmmdflow.bespokefit import run_bespokefit
 from openpharmmdflow.io.load import load_file
-from openpharmmdflow.pipeline.sm import SmallMoleculePipelineInputConfig
+from openpharmmdflow.pipeline.sm import SmallMoleculePipelineConfig
 from openpharmmdflow.pipeline.sm import create_simulation
 from openpharmmdflow.pipeline.sm import run_simulation
 
@@ -22,7 +22,7 @@ class SmallMoleculePipeline:
     # TODO: serialize
     # TODO: factory model?
     # TODO: if prep config, store nested configs more flat?
-    def __init__(self, config: SmallMoleculePipelineInputConfig):
+    def __init__(self, config: SmallMoleculePipelineConfig):
         self.config = config
         self.inputs = (
             config.inputs if isinstance(config.inputs, list) else [config.inputs]
