@@ -13,18 +13,23 @@ from openff.interchange import Interchange
 
 # TODO: Resume simulation
 def create_simulation(
+    simulate_config,
     interchange: Interchange,
-    pdb_stride: int = 500,
-    trajectory_name: str = "trajectory.pdb",
 ) -> openmm.app.Simulation:
+    pdb_stride = simulate_config.pdb_stride
+    trajectory_name = simulate_config.trajectory_name
+    temp = simulate_config.temp
+    time_step_fs = simulate_config.time_step_fs
+    pressure_bar = simulate_config.pressure_bar
+
     integrator = openmm.LangevinIntegrator(
-        300 * openmm.unit.kelvin,
-        1 / openmm.unit.picosecond,
-        1 * openmm.unit.femtoseconds,
+        temp * openmm.unit.kelvin,
+        time_step_fs / openmm.unit.picosecond,
+        time_step_fs * openmm.unit.femtoseconds,
     )
 
     barostat = openmm.MonteCarloBarostat(
-        1.0 * openmm.unit.bar, 293.15 * openmm.unit.kelvin, 25
+        pressure_bar * openmm.unit.bar, temp * openmm.unit.kelvin, 25
     )
 
     simulation = interchange.to_openmm_simulation(
@@ -40,7 +45,7 @@ def create_simulation(
     # https://github.com/openmm/openmm/issues/3736#issuecomment-1217250635
     simulation.minimizeEnergy()
 
-    simulation.context.setVelocitiesToTemperature(300 * openmm.unit.kelvin)
+    simulation.context.setVelocitiesToTemperature(temp * openmm.unit.kelvin)
     simulation.context.computeVirtualSites()
 
     pdb_reporter = openmm.app.PDBReporter(trajectory_name, pdb_stride)
@@ -58,7 +63,11 @@ def create_simulation(
     return simulation
 
 
-def run_simulation(simulation: openmm.app.Simulation, n_steps: int = 5000):
+def run_simulation(
+    simulate_config,
+    simulation: openmm.app.Simulation,
+):
+    n_steps = simulate_config.n_steps
     print("Starting simulation")
     start_time = time.process_time()
 
