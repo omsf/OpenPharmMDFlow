@@ -64,13 +64,7 @@ jobs:
           micromamba info
           micromamba list
 
-      # Can't run notebook tests on osx right now b/c of cif reader support
-      - name: "Run tests (osx)"
-        if: runner.os == 'macOS'
-        run: pytest -n logical --dist loadscope -v --cov=openpharmmdflow --cov-report=xml --junitxml=junit.xml -o junit_family=legacy --durations=10
-
-      - name: "Run tests (linux)"
-        if: runner.os == 'Linux'
+      - name: "Run tests"
         run: pytest -n logical --nbval-lax --dist loadscope -v --cov=openpharmmdflow --cov-report=xml --junitxml=junit.xml -o junit_family=legacy --durations=10
 
       - name: codecov-pr
