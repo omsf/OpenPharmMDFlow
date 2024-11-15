@@ -9,9 +9,9 @@ from openff.toolkit import ForceField
 from openpharmmdflow.bespokefit import build_bespoke_workflow_factory
 from openpharmmdflow.bespokefit import run_bespokefit
 from openpharmmdflow.io.load import load_file
-from openpharmmdflow.pipeline.sm import SmallMoleculePipelineConfig
 from openpharmmdflow.pipeline.sm import create_simulation
 from openpharmmdflow.pipeline.sm import run_simulation
+from openpharmmdflow.pipeline.sm.pipeline_settings import SmallMoleculePipelineConfig
 
 # TODO: Use snakemake to manage pipeline?
 # TODO: Use decorators for DAG/deps?
