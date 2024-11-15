@@ -9,7 +9,15 @@ Install dependencies using Micromamba_:
 .. _Micromamba: https://mamba.readthedocs.io/en/latest/installation/micromamba-installation.html
 
 .. parsed-literal::
-   micromamba create -n openpharmmdflow --file examples/mini_mvp/env.yaml
+   micromamba create -n openpharmmdflow --file conda-envs/macos-latest.yaml
+
+or
+
+.. parsed-literal::
+   micromamba create -n openpharmmdflow --file conda-envs/ubuntu-latest.yaml
+
+depending on your operating system.
+
 
 Then install the package:
 
