@@ -37,6 +37,7 @@ packages = ["openpharmmdflow"]
 
 [tool.setuptools_scm]
 version_file = "openpharmmdflow/_version.py"
+fallback_version = "0.0.0"
 
 [tool.isort]
 profile = "black"
