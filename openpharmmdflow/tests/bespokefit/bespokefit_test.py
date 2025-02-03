@@ -7,7 +7,7 @@ from openff.qcsubmit.common_structures import QCSpec
 from openff.toolkit.topology import Molecule
 
 
-def bespokefit_test():
+def test_bespokefit():
 
     factory = BespokeWorkflowFactory(
         # Define the starting force field that will be augmented with bespoke

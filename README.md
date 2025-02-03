@@ -1,6 +1,7 @@
 [![CI](https://github.com/omsf/OpenPharmMDFlow/actions/workflows/ci.yaml/badge.svg)](https://github.com/omsf/OpenPharmMDFlow/actions/workflows/ci.yaml)
 [![Documentation Status](https://readthedocs.org/projects/openpharmmdflow/badge/?version=latest)](https://openpharmmdflow.readthedocs.io/en/latest/?badge=latest)
 [![pre-commit.ci status](https://results.pre-commit.ci/badge/github/omsf/OpenPharmMDFlow/main.svg)](https://results.pre-commit.ci/latest/github/omsf/OpenPharmMDFlow/main)
+[![codecov](https://codecov.io/gh/omsf/OpenPharmMDFlow/graph/badge.svg?token=SM16TD8IZ1)](https://codecov.io/gh/omsf/OpenPharmMDFlow)
 
 # OpenPharmMDFlow
 
