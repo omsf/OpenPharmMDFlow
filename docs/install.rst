@@ -1,6 +1,13 @@
 Installation
 ============
 
+First clone the repository and ``cd`` into the repository root folder:
+
+.. parsed-literal::
+
+   git clone https://github.com/omsf/OpenPharmMDFlow.git
+   cd OpenPharmMDFlow
+
 .. warning::
    This software is still in early developlment
 
