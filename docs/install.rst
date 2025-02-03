@@ -9,12 +9,12 @@ Install dependencies using Micromamba_:
 .. _Micromamba: https://mamba.readthedocs.io/en/latest/installation/micromamba-installation.html
 
 .. parsed-literal::
-   micromamba create -n openpharmmdflow --file conda-envs/macos-latest.yaml
+   micromamba create -n openpharmmdflow -c conda-forge --file conda-envs/macos-latest.yaml
 
 or
 
 .. parsed-literal::
-   micromamba create -n openpharmmdflow --file conda-envs/ubuntu-latest.yaml
+   micromamba create -n openpharmmdflow -c conda-forge --file conda-envs/ubuntu-latest.yaml
 
 depending on your operating system.
 
@@ -30,7 +30,7 @@ Tests
 First install test dependencies:
 
 .. parsed-literal::
-   micromamba install pytest pytest-xdist
+   micromamba install -c conda-forge pytest pytest-xdist
 
 Now run the tests:
 
