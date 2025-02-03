@@ -22,7 +22,7 @@ depending on your operating system.
 Then install the package:
 
 .. parsed-literal::
-   python -m pip . --no-deps
+   python -m pip install . --no-deps
 
 Tests
 -----
