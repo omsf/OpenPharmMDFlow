@@ -18,10 +18,13 @@ or
 
 depending on your operating system.
 
+.. note::
+   If you run into network errors, you may need to configure a proxy.
 
-Then install the package:
+Then activate the environment and install the package:
 
 .. parsed-literal::
+   micromamba activate openpharmmdflow
    python -m pip install . --no-deps
 
 Tests
