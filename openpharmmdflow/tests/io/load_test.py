@@ -31,6 +31,10 @@ def TRICKY_cif():
     return IO_DATA_PATH / "2102215.cif"
 
 
+def MCL1_pdb():
+    return IO_DATA_PATH / "MCL1.pdb"
+
+
 @pytest.mark.skipif(sys.platform.startswith("darwin"), reason="no cif reader for osx")
 @pytest.mark.parametrize(
     "file, should_load",
@@ -51,4 +55,4 @@ def test_cif_loading_defaults(file, should_load):
 
 
 def test_pdb_loading():
-    load_file("examples/large_molecules/CGMD/humera/20240627_humira_noglyco_ph6.pdb")
+    load_file(MCL1_pdb())
