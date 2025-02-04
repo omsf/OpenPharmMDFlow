@@ -7,6 +7,7 @@ from typing import Union
 
 from openff.toolkit import Molecule
 from openff.toolkit import Topology
+from openff.toolkit.utils.exceptions import MoleculeParseError
 
 from openpharmmdflow import from_cif
 
@@ -34,7 +35,10 @@ def load_file(path: str | Path, **openff_kwargs) -> Molecule:
 
     if path.suffix == ".pdb":
         topology = Topology.from_pdb(path, **openff_kwargs)
-        # For now we will assume 0 is what we want
+        # For now we will assume 0 is what we want and just
+        # make sure there is not more than 1 (or none)
+        if topology.n_molecules != 1:
+            raise MoleculeParseError(f"{path} must contain only one molecule")
         protein = topology.molecule(0)
         return protein
 

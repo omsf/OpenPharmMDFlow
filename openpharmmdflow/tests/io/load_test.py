@@ -54,5 +54,6 @@ def test_cif_loading_defaults(file, should_load):
             load_file(file)
 
 
-def test_pdb_loading():
-    load_file(MCL1_pdb())
+def test_failed_pdb_loading():
+    with pytest.raises(MoleculeParseError):
+        load_file(MCL1_pdb())
