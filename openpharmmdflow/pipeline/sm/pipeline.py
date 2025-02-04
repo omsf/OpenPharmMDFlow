@@ -4,6 +4,7 @@ Small Molecule Pipeline
 
 from openff.interchange import Interchange
 from openff.interchange.components._packmol import pack_box
+from openff.interchange.components._packmol import solvate_topology
 from openff.toolkit import ForceField
 
 from openpharmmdflow.bespokefit import build_bespoke_workflow_factory
@@ -29,6 +30,7 @@ class SmallMoleculePipeline:
         )
         self.prep_config = config.prep_config if config.prep_config else None
         self.pack_config = config.pack_config
+        self.solvate_config = config.solvate_config if config.solvate_config else None
         self.parameterize_config = config.parameterize_config
         self.bespoke_ff = None
         self.simulate_config = config.simulate_config
@@ -67,6 +69,17 @@ class SmallMoleculePipeline:
             number_of_copies=self.pack_config.number_of_copies,
             mass_density=self.pack_config.mass_density,
             box_shape=self.pack_config.box_shape,
+        )
+
+    def solvate(self):
+        # Solvate the box
+        self.topology = solvate_topology(
+            self.topology,
+            nacl_conc=self.solvate_config.nacl_conc,
+            padding=self.solvate_config.padding,
+            box_shape=self.solvate_config.box_shape,
+            target_density=self.solvate_config.target_density,
+            tolerance=self.solvate_config.tolerance,
         )
 
     def parameterize(self):

@@ -5,8 +5,11 @@ Settings for running the Small Molecule Pipeline
 from pathlib import Path
 
 import numpy as np
+from numpy.typing import NDArray
+from openff.interchange.components._packmol import RHOMBIC_DODECAHEDRON
 from openff.interchange.components._packmol import UNIT_CUBE
 from openff.models.types import FloatQuantity
+from openff.models.types import Quantity
 from openff.toolkit import ForceField
 from pydantic import BaseModel
 
@@ -52,10 +55,24 @@ class SmallMoleculePipelinePrepConfig(BaseModel):
 class SmallMoleculePipelinePackConfig(BaseModel):
     # TODO: add validator for len(molecule_names) == len(number_of_copies)
     # TODO: add validator for box_shape
+
+    # for packing
     molecule_names: list[str]
     number_of_copies: list[int]
     mass_density: FloatQuantity["g/cm**3"]
     box_shape: np.ndarray = UNIT_CUBE
+
+    class Config:
+        arbitrary_types_allowed = True
+
+
+class SmallMoleculePipelineSolvateConfig(BaseModel):
+    # for solvating
+    nacl_conc: Quantity = (Quantity(0.1, "mole / liter"),)
+    padding: Quantity = (Quantity(1.2, "nanometer"),)
+    box_shape: np.ndarray = (RHOMBIC_DODECAHEDRON,)
+    target_density: Quantity = (Quantity(0.9, "gram / milliliter"),)
+    tolerance: Quantity = (Quantity(2.0, "angstrom"),)
 
     class Config:
         arbitrary_types_allowed = True
@@ -86,6 +103,7 @@ class SmallMoleculePipelineConfig(BaseModel):
     inputs: list[SmallMoleculePipelineInputConfig] | SmallMoleculePipelineInputConfig
     prep_config: SmallMoleculePipelinePrepConfig | None
     pack_config: SmallMoleculePipelinePackConfig
+    solvate_config: SmallMoleculePipelineSolvateConfig | None
     parameterize_config: SmallMoleculePipelineParameterizeConfig
     simulate_config: SmallMoleculePipelineSimulateConfig
     analyize_config: SmallMoleculePipelineAnalyizeConfig
