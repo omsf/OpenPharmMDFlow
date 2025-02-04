@@ -33,6 +33,9 @@ def load_file(path: str | Path, **openff_kwargs) -> Molecule:
         return from_cif(path)
 
     if path.suffix == ".pdb":
-        return Topology.from_pdb(path, **openff_kwargs)
+        topology = Topology.from_pdb(path, **openff_kwargs)
+        # For now we will assume 0 is what we want
+        protein = topology.molecule(0)
+        return protein
 
     return Molecule.from_file(path, **openff_kwargs)
