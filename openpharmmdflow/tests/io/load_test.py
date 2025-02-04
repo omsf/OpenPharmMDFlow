@@ -48,3 +48,7 @@ def test_cif_loading_defaults(file, should_load):
     else:
         with pytest.raises(MoleculeParseError):
             load_file(file)
+
+
+def test_pdb_loading():
+    load_file("examples/large_molecules/CGMD/humera/20240627_humira_noglyco_ph6.pdb")

@@ -6,6 +6,7 @@ from pathlib import Path
 from typing import Union
 
 from openff.toolkit import Molecule
+from openff.toolkit import Topology
 
 from openpharmmdflow import from_cif
 
@@ -30,5 +31,8 @@ def load_file(path: str | Path, **openff_kwargs) -> Molecule:
 
     if path.suffix == ".cif":
         return from_cif(path)
+
+    if path.suffix == ".pdb":
+        return Topology.from_pdb(path, **openff_kwargs)
 
     return Molecule.from_file(path, **openff_kwargs)
