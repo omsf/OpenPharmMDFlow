@@ -11,6 +11,11 @@ Right now the project is at [phase 0](https://github.com/orgs/omsf/projects/2), 
 
 See our docs [here](https://openpharmmdflow.readthedocs.io/en/latest/install.html).
 
+### Small Molecule Pipeline Example
+
+See our small molecule pipeline example notebook [here](https://github.com/omsf/OpenPharmMDFlow/blob/main/examples/pipeline/Small_Molecule_Pipeline.ipynb)
+or view the notebook rendered as html in our docs page [here](https://openpharmmdflow.readthedocs.io/en/latest/small_molecule_pipeline_example.html).
+
 ## Manifest
 
 ```
