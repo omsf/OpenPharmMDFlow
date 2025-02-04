@@ -1,5 +1,5 @@
 """
-Wrapper for loading componets
+Wrapper for loading componets 
 """
 
 from pathlib import Path
