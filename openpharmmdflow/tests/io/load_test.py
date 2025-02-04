@@ -35,6 +35,10 @@ def MCL1_pdb():
     return IO_DATA_PATH / "MCL1.pdb"
 
 
+def MCL1_no_water():
+    return IO_DATA_PATH / "MCL1_no_water.pdb"
+
+
 @pytest.mark.skipif(sys.platform.startswith("darwin"), reason="no cif reader for osx")
 @pytest.mark.parametrize(
     "file, should_load",
@@ -57,3 +61,7 @@ def test_cif_loading_defaults(file, should_load):
 def test_failed_pdb_loading():
     with pytest.raises(MoleculeParseError):
         load_file(MCL1_pdb())
+
+
+def test_working_pdb_loading():
+    load_file(MCL1_no_water())
