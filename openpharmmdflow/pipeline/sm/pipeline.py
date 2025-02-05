@@ -2,6 +2,8 @@
 Small Molecule Pipeline
 """
 
+import os
+
 from openff.interchange import Interchange
 from openff.interchange.components._packmol import pack_box
 from openff.interchange.components._packmol import solvate_topology
@@ -85,17 +87,28 @@ class SmallMoleculePipeline:
         # create a water molecule
         self.water = Molecule.from_smiles("O")
         self.water.generate_conformers(n_conformers=1)
+        # TODO See if we can get the number of waters, Na, Cl out of solvate_topology
+        # TODO Maybe import water + ions instead of making them here?
         # find out the number of waters in the system
-        self.n_water = len([m for m in self.solvated_topology.molecules if m.to_smiles()=='[H][O][H]'])
-        # create a Soldium ion
+        self.n_water = len(
+            [
+                m
+                for m in self.solvated_topology.molecules
+                if m.to_smiles() == "[H][O][H]"
+            ]
+        )
+        # create a Sodium ion
         self.sodium_ion = Molecule.from_smiles("[Na+]")
         # find out the number of sodium ions in the system
-        self.n_sodium_ion = len([m for m in self.solvated_topology.molecules if m.to_smiles()=='[Na+]'])
+        self.n_sodium_ion = len(
+            [m for m in self.solvated_topology.molecules if m.to_smiles() == "[Na+]"]
+        )
         # create a Chlorine ion
         self.chlorine_ion = Molecule.from_smiles("[Cl-]")
         # find out the number of sodium ions in the system
-        self.n_chlorine_ion = len([m for m in self.solvated_topology.molecules if m.to_smiles()=='[Cl-]'])
-        
+        self.n_chlorine_ion = len(
+            [m for m in self.solvated_topology.molecules if m.to_smiles() == "[Cl-]"]
+        )
 
     def parameterize(self):
         # TODO test to make sure we use the FF we expect to use
@@ -111,17 +124,20 @@ class SmallMoleculePipeline:
         )
         # if there are waters built during the solvate step combine the components topology
         # with the water topology
-        if hasattr(self, 'water'):
+        # TODO better way to check if we ran solvate?
+        # TODO let user specify ff for solute
+        if hasattr(self, "water"):
             self.water_intrcg = Interchange.from_smirnoff(
                 force_field=ForceField("openff_unconstrained-2.0.0.offxml"),
-                topology=[self.water] * self.n_water + 
-                        [self.sodium_ion] * self.n_sodium_ion +
-                         [self.chlorine_ion] * self.n_chlorine_ion,
+                topology=[self.water] * self.n_water
+                + [self.sodium_ion] * self.n_sodium_ion
+                + [self.chlorine_ion] * self.n_chlorine_ion,
             )
+            # combine is still experimental
+            os.environ["INTERCHANGE_EXPERIMENTAL"] = "1"
             self.interchange = self.components_intrcg.combine(self.water_intrcg)
             self.interchange.positions = self.solvated_topology.get_positions()
             self.interchange.box = self.solvated_topology.box_vectors
-        
 
     def simulate(self):
         self.simulation = create_simulation(self.simulate_config, self.interchange)

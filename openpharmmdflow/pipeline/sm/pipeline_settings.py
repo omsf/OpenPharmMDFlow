@@ -68,6 +68,7 @@ class SmallMoleculePipelinePackConfig(BaseModel):
 
 class SmallMoleculePipelineSolvateConfig(BaseModel):
     # for solvating
+    # TODO fix this so the defaults work
     nacl_conc: Quantity = (Quantity(0.1, "mole / liter"),)
     padding: Quantity = (Quantity(1.2, "nanometer"),)
     box_shape: np.ndarray = (RHOMBIC_DODECAHEDRON,)
