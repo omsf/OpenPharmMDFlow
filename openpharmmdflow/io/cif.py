@@ -44,8 +44,14 @@ def from_cif(path: str | os.PathLike) -> openff.toolkit.Molecule:
     >>> molecule.visualize()
     """
 
-    if shutil.which("apptainer") is None:
-        raise RuntimeError("apptainer is required to read cif")
+    if shutil.which("apptainer"):
+        CONTAINER_EXE_NAME = "apptainer"
+
+    elif shutil.which("singularity"):
+        CONTAINER_EXE_NAME = "singularity"
+
+    else:
+        raise RuntimeError("apptainer or singularity is required to read cif")
 
     # Download the apptainer image if it isn't in the cache
     container_path = GOODBOY.fetch("cod-tools.sif")
@@ -54,7 +60,7 @@ def from_cif(path: str | os.PathLike) -> openff.toolkit.Molecule:
         out_path = f"{td}/out.sdf"
         with open(f"{td}/out.sdf", "w") as f:
             cmd_output = subprocess.run(
-                ["apptainer", "exec", container_path, "codcif2sdf", f"{path}"],
+                [CONTAINER_EXE_NAME, "exec", container_path, "codcif2sdf", f"{path}"],
                 check=True,
                 stdout=f,
             )

@@ -1,0 +1,22 @@
+channels:
+  - conda-forge
+dependencies:
+  # core
+  - openff-interchange >=0.3.18
+  - pooch
+  - openff-bespokefit
+  - xtb-python
+  # need to match hpc drivers
+  - cuda =12.2
+  # examples
+  - nglview
+  # docs
+  - nbsphinx
+  - sphinx
+  # tests
+  - pytest
+  - pytest-xdist
+  # viz
+  - pymol-open-source
+  - pip:
+    - nbsphinx-link >=1.3.1
