@@ -64,7 +64,7 @@ class SmallMoleculePipeline:
         # build the box here
         # TODO: use mBuild for lattice tooling
         # Right now random packing is supported
-        self.components_topology = pack_box(
+        self.topology = pack_box(
             molecules=[
                 self.loaded_mols[mol_name]
                 for mol_name in self.pack_config.molecule_names
@@ -77,7 +77,7 @@ class SmallMoleculePipeline:
     def solvate(self):
         # Solvate the box
         self.solvated_topology = solvate_topology(
-            self.components_topology,
+            self.topology,
             nacl_conc=self.solvate_config.nacl_conc,
             padding=self.solvate_config.padding,
             box_shape=self.solvate_config.box_shape,
@@ -120,7 +120,7 @@ class SmallMoleculePipeline:
         if not isinstance(self.force_field, ForceField):
             self.force_field = ForceField(self.force_field)
         self.components_intrcg = Interchange.from_smirnoff(
-            force_field=self.force_field, topology=self.components_topology
+            force_field=self.force_field, topology=self.topology
         )
         # if there are waters built during the solvate step combine the components topology
         # with the water topology
@@ -138,6 +138,9 @@ class SmallMoleculePipeline:
             self.interchange = self.components_intrcg.combine(self.water_intrcg)
             self.interchange.positions = self.solvated_topology.get_positions()
             self.interchange.box = self.solvated_topology.box_vectors
+
+        else:
+            self.interchange = self.components_intrcg
 
     def simulate(self):
         self.simulation = create_simulation(self.simulate_config, self.interchange)
