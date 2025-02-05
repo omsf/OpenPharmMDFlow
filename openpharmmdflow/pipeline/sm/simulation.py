@@ -41,10 +41,10 @@ def create_simulation(
 
     # https://github.com/openmm/openmm/wiki/Frequently-Asked-Questions#why-does-it-ignore-changes-i-make-to-a-system-or-force
     simulation.context.reinitialize(preserveState=True)
-    print('start minimize')
+    print("start minimize")
     # https://github.com/openmm/openmm/issues/3736#issuecomment-1217250635
     simulation.minimizeEnergy()
-    print('end minimize')
+    print("end minimize")
     simulation.context.setVelocitiesToTemperature(temp * openmm.unit.kelvin)
     simulation.context.computeVirtualSites()
 
