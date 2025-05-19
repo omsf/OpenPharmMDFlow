@@ -18,7 +18,7 @@ npt_steps = 10000
 dcd_write_period = 10
 log_write_period = 10
 nvt_steps = 100
-npt_steps = 100
+npt_steps = 1000
 
 # Directories and file paths
 out_dir = Path("output")
@@ -205,8 +205,6 @@ if remaining_nvt_steps > 0:
     simulation.reporters.append(CheckpointReporter(
         str(nvt_checkpoint_path),
         checkpoint_frequency,
-        str(progress_file),
-        'nvt'
     ))
 
     # Run the simulation
@@ -247,8 +245,6 @@ if remaining_npt_steps > 0:
     simulation.reporters.append(CheckpointReporter(
         str(npt_checkpoint_path),
         checkpoint_frequency,
-        str(progress_file),
-        'npt'
     ))
 
     # Run the simulation
