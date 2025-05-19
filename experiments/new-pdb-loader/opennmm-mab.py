@@ -1,13 +1,19 @@
+print("importing packages")
 from openmm.app import *
 from openmm import *
 from openmm.unit import *
 from sys import stdout
+print("imports done")
 
+print("loading pdb")
 pdb = PDBFile("../../inputs/mAb/lai_2022_mab3_nogly_ph6.pdb")
+print("loading ff")
 forcefield = ForceField('amber14/protein.ff14SB.xml', 'amber14/tip3pfb.xml')
+print("starting moddler")
 modeller = Modeller(pdb.topology, pdb.positions)
 modeller.addSolvent(forcefield, padding=1.0*nanometer)
 
+print("making sytem")
 system = forcefield.createSystem(modeller.topology, nonbondedMethod=PME, nonbondedCutoff=1.0*nanometer, constraints=HBonds)
 integrator = LangevinMiddleIntegrator(300*kelvin, 1/picosecond, 0.004*picoseconds)
 simulation = Simulation(modeller.topology, system, integrator)
