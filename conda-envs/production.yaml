@@ -4,10 +4,7 @@ dependencies:
   # core
   - openff-interchange >=0.3.18
   - pooch
-  - openff-bespokefit
   - xtb-python
-  # need to match hpc drivers
-  - cuda ==12.2
   # examples
   - nglview
   # docs
