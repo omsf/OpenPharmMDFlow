@@ -1,0 +1,6 @@
+name: openpharmmdflow-openmm
+channels:
+  - conda-forge
+dependencies:
+  - openmm
+  - cuda ==12.2
