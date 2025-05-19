@@ -21,7 +21,7 @@ nvt_steps = 1000
 npt_steps = 1000
 
 # Directories and file paths
-out_dir = Path("A40")
+out_dir = Path("output")
 dcd_path = out_dir / Path("output.dcd")
 md_log_path = out_dir / Path("md_log.txt")
 checkpoint_path = out_dir / Path("checkpoint.chk")
