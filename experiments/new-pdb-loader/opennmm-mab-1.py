@@ -15,13 +15,13 @@ nvt_steps = 10000
 npt_steps = 10000
 
 # Use these for faster testing if needed
-dcd_write_period = 10
-log_write_period = 10
-nvt_steps = 100
+dcd_write_period = 100
+log_write_period = 100
+nvt_steps = 1000
 npt_steps = 1000
 
 # Directories and file paths
-out_dir = Path("output")
+out_dir = Path("A40")
 dcd_path = out_dir / Path("output.dcd")
 md_log_path = out_dir / Path("md_log.txt")
 checkpoint_path = out_dir / Path("checkpoint.chk")
@@ -39,6 +39,33 @@ out_dir.mkdir(parents=True, exist_ok=True)
 resuming = False
 completed_nvt_steps = 0
 completed_npt_steps = 0
+
+
+class CheckpointReporter(object):
+    def __init__(self, file, reportInterval, progress_file, phase):
+        self._file = file
+        self._reportInterval = reportInterval
+        self._progress_file = progress_file
+        self._phase = phase
+
+    def describeNextReport(self, simulation):
+        steps = self._reportInterval - simulation.currentStep % self._reportInterval
+        return (steps, False, False, False, False, False)
+
+    def report(self, simulation, state):
+        simulation.saveCheckpoint(self._file)
+        completed_steps = completed_nvt_steps + simulation.currentStep if self._phase == 'nvt' else nvt_steps
+        completed_npt_steps_now = completed_npt_steps + simulation.currentStep if self._phase == 'npt' else completed_npt_steps
+
+        with open(self._progress_file, 'w') as f:
+            json.dump({
+                'completed_nvt_steps': completed_steps,
+                'completed_npt_steps': completed_npt_steps_now,
+                'minimization_completed': True
+            }, f)
+
+
+
 
 if progress_file.exists():
     print("Found progress file, checking simulation status")
@@ -179,32 +206,12 @@ if remaining_nvt_steps > 0:
     else:
         checkpoint_frequency = min(1000, remaining_nvt_steps)
 
-    class CheckpointReporter(object):
-        def __init__(self, file, reportInterval, progress_file, phase):
-            self._file = file
-            self._reportInterval = reportInterval
-            self._progress_file = progress_file
-            self._phase = phase
-
-        def describeNextReport(self, simulation):
-            steps = self._reportInterval - simulation.currentStep % self._reportInterval
-            return (steps, False, False, False, False, False)
-
-        def report(self, simulation, state):
-            simulation.saveCheckpoint(self._file)
-            completed_steps = completed_nvt_steps + simulation.currentStep if self._phase == 'nvt' else nvt_steps
-            completed_npt_steps_now = completed_npt_steps + simulation.currentStep if self._phase == 'npt' else completed_npt_steps
-
-            with open(self._progress_file, 'w') as f:
-                json.dump({
-                    'completed_nvt_steps': completed_steps,
-                    'completed_npt_steps': completed_npt_steps_now,
-                    'minimization_completed': True
-                }, f)
 
     simulation.reporters.append(CheckpointReporter(
         str(nvt_checkpoint_path),
         checkpoint_frequency,
+        str(progress_file),
+        'nvt'
     ))
 
     # Run the simulation
@@ -245,6 +252,8 @@ if remaining_npt_steps > 0:
     simulation.reporters.append(CheckpointReporter(
         str(npt_checkpoint_path),
         checkpoint_frequency,
+        str(progress_file),
+        'npt'
     ))
 
     # Run the simulation
