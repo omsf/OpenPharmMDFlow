@@ -43,7 +43,7 @@ jobs:
       - name: "Setup Micromamba"
         uses: mamba-org/setup-micromamba@v1
         with:
-          environment-file: conda-envs/${{ matrix.os }}-bespokefit-${{ matrix.bespoke-fit}}.yaml
+          environment-file: conda-envs/${{ matrix.os }}-bespokefit-${{ matrix.bespokefit}}.yaml
           environment-name: openpharmflow
           cache-environment: true
           cache-downloads: true
