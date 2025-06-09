@@ -11,9 +11,7 @@ from openff.interchange.components._packmol import UNIT_CUBE
 from openff.models.types import FloatQuantity
 from openff.models.types import Quantity
 from openff.toolkit import ForceField
-from openff.units import Quantity
 from pydantic import BaseModel
-from pydantic import model_validator
 
 
 class SmallMoleculePipelineInputConfig(BaseModel):
