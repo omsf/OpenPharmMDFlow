@@ -10,7 +10,7 @@ from openff.interchange.components._packmol import RHOMBIC_DODECAHEDRON
 from openff.interchange.components._packmol import UNIT_CUBE
 from openff.units import Quantity
 from openff.toolkit import ForceField
-from pydantic import BaseModel
+from pydantic import BaseModel, model_validator
 
 from typing import TYPE_CHECKING, Any
 from openff.units import Unit, unit
@@ -68,61 +68,59 @@ class _FloatQuantityMeta(type):
         return type("FloatQuantity", (FloatQuantity,), {"__unit__": t})
 
 
-if TYPE_CHECKING:
-    FloatQuantity = unit.Quantity
-else:
 
-    class FloatQuantity(float, metaclass=_FloatQuantityMeta):
-        """A model for unit-bearing floats."""
+class FloatQuantity(float, metaclass=_FloatQuantityMeta):
+    """A model for unit-bearing floats."""
 
-        @classmethod
-        def __get_validators__(cls):
-            yield cls.validate_type
+    @classmethod
+    def __get_validators__(cls):
+        yield cls.validate_type
 
-        @classmethod
-        def validate_type(cls, val):
-            """Process a value tagged with units into one tagged with "OpenFF" style units."""
-            unit_ = getattr(cls, "__unit__", Any)
-            if unit_ is Any:
-                if isinstance(val, (float, int)):
-                    # TODO: Can this exception be raised with knowledge of the field it's in?
-                    raise MissingUnitError(f"Value {val} needs to be tagged with a unit")
-                elif isinstance(val, Quantity):
-                    return Quantity(val)
-                elif _is_openmm_quantity(val):
-                    return _from_omm_quantity(val)
-                else:
-                    raise UnitValidationError(f"Could not validate data of type {type(val)}")
+    @model_validator(mode='before')
+    @classmethod
+    def validate_type(cls, val):
+        """Process a value tagged with units into one tagged with "OpenFF" style units."""
+        unit_ = getattr(cls, "__unit__", Any)
+        if unit_ is Any:
+            if isinstance(val, (float, int)):
+                # TODO: Can this exception be raised with knowledge of the field it's in?
+                raise MissingUnitError(f"Value {val} needs to be tagged with a unit")
+            elif isinstance(val, Quantity):
+                return Quantity(val)
+            elif _is_openmm_quantity(val):
+                return _from_omm_quantity(val)
             else:
-                unit_ = Unit(unit_)
-                if isinstance(val, Quantity):
-                    # some custom behavior could go here
-                    assert unit_.dimensionality == val.dimensionality
-                    # return through converting to some intended default units (taken from the class)
-                    val._magnitude = float(val.m)
-                    return val.to(unit_)
-
-                if _is_openmm_quantity(val):
-                    return _from_omm_quantity(val).to(unit_)
-                if isinstance(val, int) and not isinstance(val, bool):
-                    # coerce ints into floats for a FloatQuantity
-                    return float(val) * unit_
-                if isinstance(val, float):
-                    return val * unit_
-                if isinstance(val, str):
-                    # could do custom deserialization here?
-                    val = Quantity(val).to(unit_)
-                    val._magnitude = float(val._magnitude)
-                    return val
-                if "unyt" in str(val.__class__):
-                    if val.value.shape == ():
-                        # this is a scalar force into an array by unyt's design
-                        if "float" in str(val.value.dtype):
-                            return float(val.value) * unit_
-                        elif "int" in str(val.value.dtype):
-                            return int(val.value) * unit_
-
                 raise UnitValidationError(f"Could not validate data of type {type(val)}")
+        else:
+            unit_ = Unit(unit_)
+            if isinstance(val, Quantity):
+                # some custom behavior could go here
+                assert unit_.dimensionality == val.dimensionality
+                # return through converting to some intended default units (taken from the class)
+                val._magnitude = float(val.m)
+                return val.to(unit_)
+
+            if _is_openmm_quantity(val):
+                return _from_omm_quantity(val).to(unit_)
+            if isinstance(val, int) and not isinstance(val, bool):
+                # coerce ints into floats for a FloatQuantity
+                return float(val) * unit_
+            if isinstance(val, float):
+                return val * unit_
+            if isinstance(val, str):
+                # could do custom deserialization here?
+                val = Quantity(val).to(unit_)
+                val._magnitude = float(val._magnitude)
+                return val
+            if "unyt" in str(val.__class__):
+                if val.value.shape == ():
+                    # this is a scalar force into an array by unyt's design
+                    if "float" in str(val.value.dtype):
+                        return float(val.value) * unit_
+                    elif "int" in str(val.value.dtype):
+                        return int(val.value) * unit_
+
+            raise UnitValidationError(f"Could not validate data of type {type(val)}")
 
 class SmallMoleculePipelineInputConfig(BaseModel):
     # TODO: support SMILES
