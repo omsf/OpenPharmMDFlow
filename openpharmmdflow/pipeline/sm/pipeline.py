@@ -65,15 +65,27 @@ class SmallMoleculePipeline:
         # build the box here
         # TODO: use mBuild for lattice tooling
         # Right now random packing is supported
-        self.topology = pack_box(
-            molecules=[
-                self.loaded_mols[mol_name]
-                for mol_name in self.pack_config.molecule_names
-            ],
-            number_of_copies=self.pack_config.number_of_copies,
-            target_density=self.pack_config.target_density,
-            box_shape=self.pack_config.box_shape,
-        )
+        try:
+            self.topology = pack_box(
+                molecules=[
+                    self.loaded_mols[mol_name]
+                    for mol_name in self.pack_config.molecule_names
+                ],
+                number_of_copies=self.pack_config.number_of_copies,
+                target_density=self.pack_config.target_density,
+                box_shape=self.pack_config.box_shape,
+            )
+        # older versions of interchange use "mass_density" instead of target_density
+        except TypeError:
+            self.topology = pack_box(
+                molecules=[
+                    self.loaded_mols[mol_name]
+                    for mol_name in self.pack_config.molecule_names
+                ],
+                number_of_copies=self.pack_config.number_of_copies,
+                mass_density=self.pack_config.target_density,
+                box_shape=self.pack_config.box_shape,
+            )
 
     def solvate(self):
         # Solvate the box
