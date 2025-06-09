@@ -1,0 +1,16 @@
+channels:
+  - conda-forge
+dependencies:
+  # core
+  - openff-interchange >=0.3.18
+  - apptainer
+  - pooch
+  - openff-bespokefit
+  - xtb-python
+  # examples
+  - nglview
+  # docs
+  - nbsphinx
+  - sphinx
+  - pip:
+    - nbsphinx-link >=1.3.1
