@@ -26,7 +26,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: ["ubuntu-22.04"]
+        os: ["ubuntu-latest"]
+        bespokefit: ["true", "false"]
         python-version:
           - "3.11"
         include:
@@ -42,7 +43,7 @@ jobs:
       - name: "Setup Micromamba"
         uses: mamba-org/setup-micromamba@v1
         with:
-          environment-file: conda-envs/${{ matrix.os }}.yaml
+          environment-file: conda-envs/${{ matrix.os }}-bespokefit-${{ matrix.bespoke-fit}}.yaml
           environment-name: openpharmflow
           cache-environment: true
           cache-downloads: true

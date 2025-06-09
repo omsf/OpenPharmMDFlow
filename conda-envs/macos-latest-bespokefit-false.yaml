@@ -4,7 +4,6 @@ dependencies:
   # core
   - openff-interchange >=0.3.18
   - pooch
-  - openff-bespokefit
   - xtb-python
   # examples
   - nglview
