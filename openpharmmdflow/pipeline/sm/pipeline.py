@@ -10,8 +10,6 @@ from openff.interchange.components._packmol import solvate_topology
 from openff.toolkit import ForceField
 from openff.toolkit import Molecule
 
-from openpharmmdflow.bespokefit import build_bespoke_workflow_factory
-from openpharmmdflow.bespokefit import run_bespokefit
 from openpharmmdflow.io.load import load_file
 from openpharmmdflow.pipeline.sm.pipeline_settings import SmallMoleculePipelineConfig
 from openpharmmdflow.pipeline.sm.simulation import create_simulation
@@ -48,6 +46,9 @@ class SmallMoleculePipeline:
 
     def prep(self):
         # run bespokefit here
+        from openpharmmdflow.bespokefit import build_bespoke_workflow_factory
+        from openpharmmdflow.bespokefit import run_bespokefit
+
         if self.prep_config:
             self.factory = build_bespoke_workflow_factory(
                 self.prep_config.bespokefit_config.bespoke_workflow_factory_config
