@@ -71,7 +71,7 @@ class SmallMoleculePipeline:
                 for mol_name in self.pack_config.molecule_names
             ],
             number_of_copies=self.pack_config.number_of_copies,
-            mass_density=self.pack_config.mass_density,
+            target_density=self.pack_config.target_density,
             box_shape=self.pack_config.box_shape,
         )
 

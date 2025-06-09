@@ -59,7 +59,7 @@ class SmallMoleculePipelinePackConfig(BaseModel):
     # for packing
     molecule_names: list[str]
     number_of_copies: list[int]
-    mass_density: FloatQuantity["g/cm**3"]
+    target_density: FloatQuantity["g/cm**3"]
     box_shape: np.ndarray = UNIT_CUBE
 
     class Config:
