@@ -22,7 +22,7 @@ defaults:
 jobs:
   tests:
     runs-on: ${{ matrix.os }}
-    name: "💻-${{matrix.os }} 🐍-${{ matrix.python-version }}"
+    name: "💻-${{matrix.os }} 🐍-${{ matrix.python-version }} 🔧-${{ matrix.bespokefit }}"
     strategy:
       fail-fast: false
       matrix:
