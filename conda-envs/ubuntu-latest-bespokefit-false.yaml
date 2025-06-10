@@ -3,9 +3,9 @@ channels:
 dependencies:
   # core
   - openff-interchange >=0.3.18
+  - openff-models
   - apptainer
   - pooch
-  - openff-bespokefit
   - xtb-python
   # examples
   - nglview
