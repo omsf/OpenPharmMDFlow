@@ -3,7 +3,7 @@ filetype pdb # Output file format
 output packed_proteins.pdb # Output file name
 
 # Define the first protein
-structure ../../inputs/mAb/lai_2022_mab3_nogly_ph6.pdb
+structure lai_2022_mab3_nogly_ph6_packmol-processed.pdb
   number 2
   inside box 0. 0. 0. 1000. 1000. 1000.  # Place protein1 inside a box of size 50x50x50
 end structure

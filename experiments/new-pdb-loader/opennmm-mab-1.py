@@ -30,6 +30,9 @@ npt_checkpoint_path = out_dir / Path("npt_checkpoint.chk")
 nvt_final_pdb_path = out_dir / Path("nvt_final.pdb")
 npt_final_pdb_path = out_dir / Path("npt_final.pdb")
 progress_file = out_dir / Path("progress.json")
+input_pdb = "../../inputs/mAb/lai_2022_mab3_nogly_ph6.pdb"
+input_pdb = "lai_2022_mab3_nogly_ph6_packmol.pdb"
+input_pdb = "packed_proteins.pdb"
 
 # Create output directory
 print("Setting up dirs")
@@ -87,7 +90,7 @@ print(f"Planning to run {remaining_nvt_steps} additional NVT steps and {remainin
 
 if not resuming:
     print("Loading pdb")
-    pdb = PDBFile("../../inputs/mAb/lai_2022_mab3_nogly_ph6.pdb")
+    pdb = PDBFile(input_pdb)
     print("Loading forcefield")
     forcefield = ForceField("amber14/protein.ff14SB.xml", "amber14/tip3pfb.xml")
     print("Setting up modeller")
