@@ -42,6 +42,10 @@ class SmallMoleculePipeline:
         for input in self.inputs:
             mol = load_file(input.path)
             mol.name = input.name
+            # If it is a openff mol, making a conformer will give us 3D cords
+            # we can use later, needed for GAFF support
+            if isinstance(mol, Molecule):
+                mol.generate_conformers(n_conformers=1)
             self.loaded_mols[mol.name] = mol
 
     def prep(self):
@@ -124,6 +128,15 @@ class SmallMoleculePipeline:
         )
 
     def parameterize(self):
+        # We can either use a openmmforcefield suported FF or a openff supported one
+        if self.force_field in ['gaff-1.4', 'gaff-1.8', 'gaff-1.81', 'gaff-2.1', 'gaff-2.11']:
+            # Keep these imports lazy since they are only needed with gaff
+            from openmmforcefields.generators import GAFFTemplateGenerator
+            import openmm.app
+
+            gaff = GAFFTemplateGenerator(molecules=list(self.self.loaded_mols.values()), forcefield=self.force_field)
+            forcefield_gaff = openmm.app.ForceField()
+
         # TODO test to make sure we use the FF we expect to use
         # Use bespoke ff if we made one
         self.force_field = (
