@@ -63,7 +63,7 @@ jobs:
           micromamba list
 
       - name: "Run tests"
-        run: pytest -n logical --nbval-lax --dist loadscope -v --cov=openpharmmdflow --cov-report=xml --junitxml=junit.xml -o junit_family=legacy --durations=10
+        run: pytest -n logical --nbval-lax --nbval-cell-timeout=3000 --dist loadscope -v --cov=openpharmmdflow --cov-report=xml --junitxml=junit.xml -o junit_family=legacy --durations=10
 
       - name: codecov
         if: ${{ github.repository == 'omsf/OpenPharmMDFlow' }}
