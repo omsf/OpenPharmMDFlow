@@ -80,8 +80,13 @@ def run_simulation(
             print(step, np.linalg.det(box_vectors._value).round(3))
         # For the first 10% of the simulation, scale pressure down to target pressure with linear ramp
         # TODO: Need to start at lower pressure
-        if step % 500 == 0 and step < int(n_steps * .1):
-            simulation.context.setParameter(MonteCarloBarostat.Pressure(), simulate_config.pressure_bar*openmm.unit.bar*(int(n_steps-n_steps*.1)-step))
+        if step % 500 == 0 and step < int(n_steps * 0.1):
+            simulation.context.setParameter(
+                MonteCarloBarostat.Pressure(),
+                simulate_config.pressure_bar
+                * openmm.unit.bar
+                * (int(n_steps - n_steps * 0.1) - step),
+            )
 
     end_time = time.process_time()
     print(f"Elapsed time: {(end_time - start_time):.2f} seconds")
