@@ -10,8 +10,6 @@ from openff.interchange.components._packmol import solvate_topology
 from openff.toolkit import ForceField
 from openff.toolkit import Molecule
 
-from openpharmmdflow.bespokefit import build_bespoke_workflow_factory
-from openpharmmdflow.bespokefit import run_bespokefit
 from openpharmmdflow.io.load import load_file
 from openpharmmdflow.pipeline.sm.pipeline_settings import SmallMoleculePipelineConfig
 from openpharmmdflow.pipeline.sm.simulation import create_simulation
@@ -48,6 +46,9 @@ class SmallMoleculePipeline:
 
     def prep(self):
         # run bespokefit here
+        from openpharmmdflow.bespokefit import build_bespoke_workflow_factory
+        from openpharmmdflow.bespokefit import run_bespokefit
+
         if self.prep_config:
             self.factory = build_bespoke_workflow_factory(
                 self.prep_config.bespokefit_config.bespoke_workflow_factory_config
@@ -64,15 +65,27 @@ class SmallMoleculePipeline:
         # build the box here
         # TODO: use mBuild for lattice tooling
         # Right now random packing is supported
-        self.topology = pack_box(
-            molecules=[
-                self.loaded_mols[mol_name]
-                for mol_name in self.pack_config.molecule_names
-            ],
-            number_of_copies=self.pack_config.number_of_copies,
-            mass_density=self.pack_config.mass_density,
-            box_shape=self.pack_config.box_shape,
-        )
+        try:
+            self.topology = pack_box(
+                molecules=[
+                    self.loaded_mols[mol_name]
+                    for mol_name in self.pack_config.molecule_names
+                ],
+                number_of_copies=self.pack_config.number_of_copies,
+                target_density=self.pack_config.target_density,
+                box_shape=self.pack_config.box_shape,
+            )
+        # older versions of interchange use "mass_density" instead of target_density
+        except TypeError:
+            self.topology = pack_box(
+                molecules=[
+                    self.loaded_mols[mol_name]
+                    for mol_name in self.pack_config.molecule_names
+                ],
+                number_of_copies=self.pack_config.number_of_copies,
+                mass_density=self.pack_config.target_density,
+                box_shape=self.pack_config.box_shape,
+            )
 
     def solvate(self):
         # Solvate the box

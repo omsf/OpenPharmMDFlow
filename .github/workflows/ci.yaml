@@ -22,16 +22,14 @@ defaults:
 jobs:
   tests:
     runs-on: ${{ matrix.os }}
-    name: "💻-${{matrix.os }} 🐍-${{ matrix.python-version }}"
+    name: "💻-${{matrix.os }} 🐍-${{ matrix.python-version }} 🔧-${{ matrix.bespokefit }}"
     strategy:
       fail-fast: false
       matrix:
-        os: ["ubuntu-22.04"]
+        os: ["ubuntu-22.04", "macos-latest"]
+        bespokefit: ["true", "false"]
         python-version:
           - "3.11"
-        include:
-          - os: "macos-latest"
-            python-version: "3.11" # Need to get mdtraj osx 3.12 build
     steps:
       - uses: actions/checkout@v4
 
@@ -42,7 +40,7 @@ jobs:
       - name: "Setup Micromamba"
         uses: mamba-org/setup-micromamba@v1
         with:
-          environment-file: conda-envs/${{ matrix.os }}.yaml
+          environment-file: conda-envs/${{ matrix.os }}-bespokefit-${{ matrix.bespokefit}}.yaml
           environment-name: openpharmflow
           cache-environment: true
           cache-downloads: true
@@ -65,7 +63,7 @@ jobs:
           micromamba list
 
       - name: "Run tests"
-        run: pytest -n logical --nbval-lax --dist loadscope -v --cov=openpharmmdflow --cov-report=xml --junitxml=junit.xml -o junit_family=legacy --durations=10
+        run: pytest -n logical --nbval-lax --nbval-cell-timeout=3000 --dist loadscope -v --cov=openpharmmdflow --cov-report=xml --junitxml=junit.xml -o junit_family=legacy --durations=10
 
       - name: codecov
         if: ${{ github.repository == 'omsf/OpenPharmMDFlow' }}

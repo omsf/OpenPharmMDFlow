@@ -1,13 +1,17 @@
-from openff.bespokefit.executor import BespokeExecutor
-from openff.bespokefit.executor import BespokeWorkerConfig
-from openff.bespokefit.executor.client import BespokeFitClient
-from openff.bespokefit.executor.client import Settings
-from openff.bespokefit.workflows import BespokeWorkflowFactory
-from openff.qcsubmit.common_structures import QCSpec
-from openff.toolkit.topology import Molecule
+import pytest
+from openff.utilities.testing import skip_if_missing
 
 
+@skip_if_missing("openff.bespokefit")
+@pytest.mark.flaky(retries=3, delay=1, only_on=[ConnectionError])
 def test_bespokefit():
+    from openff.bespokefit.executor import BespokeExecutor
+    from openff.bespokefit.executor import BespokeWorkerConfig
+    from openff.bespokefit.executor.client import BespokeFitClient
+    from openff.bespokefit.executor.client import Settings
+    from openff.bespokefit.workflows import BespokeWorkflowFactory
+    from openff.qcsubmit.common_structures import QCSpec
+    from openff.toolkit.topology import Molecule
 
     factory = BespokeWorkflowFactory(
         # Define the starting force field that will be augmented with bespoke
