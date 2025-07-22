@@ -52,6 +52,7 @@ jobs:
             pytest-cov
             pytest-xdist
             python=${{ matrix.python-version }}
+            packmol==21.0.4
           init-shell: bash
 
       - name: "Install"
