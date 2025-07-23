@@ -38,7 +38,7 @@ jobs:
         run: echo "date=$(date +%Y-%m-%d)" >> "${GITHUB_OUTPUT}"
 
       - name: "Setup Micromamba"
-        uses: mamba-org/setup-micromamba@v1
+        uses: mamba-org/setup-micromamba@v2
         with:
           environment-file: conda-envs/${{ matrix.os }}-bespokefit-${{ matrix.bespokefit}}.yaml
           environment-name: openpharmflow
