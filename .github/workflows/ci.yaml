@@ -38,7 +38,7 @@ jobs:
         run: echo "date=$(date +%Y-%m-%d)" >> "${GITHUB_OUTPUT}"
 
       - name: "Setup Micromamba"
-        uses: mamba-org/setup-micromamba@v1
+        uses: mamba-org/setup-micromamba@v2
         with:
           environment-file: conda-envs/${{ matrix.os }}-bespokefit-${{ matrix.bespokefit}}.yaml
           environment-name: openpharmflow
@@ -52,6 +52,7 @@ jobs:
             pytest-cov
             pytest-xdist
             python=${{ matrix.python-version }}
+            packmol==21.0.4
           init-shell: bash
 
       - name: "Install"
