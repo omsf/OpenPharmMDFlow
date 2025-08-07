@@ -110,18 +110,39 @@ class SmallMoleculePipeline:
                 if m.to_smiles() == "[H][O][H]"
             ]
         )
+        # Assign residue name for atoms in water molecule
+        for molecule in self.solvated_topology.molecules:
+            if molecule.to_smiles() == "[H][O][H]":
+                for atom in molecule.atoms:
+                    if not hasattr(atom, "metadata") or atom.metadata is None:
+                        atom.metadata = {}
+                    atom.metadata["residue_name"] = "HOH"
         # create a Sodium ion
         self.sodium_ion = Molecule.from_smiles("[Na+]")
         # find out the number of sodium ions in the system
         self.n_sodium_ion = len(
             [m for m in self.solvated_topology.molecules if m.to_smiles() == "[Na+]"]
         )
+        # Assign residue name for atoms in Na ion
+        for molecule in self.solvated_topology.molecules:
+            if molecule.to_smiles() == "[Na+]":
+                for atom in molecule.atoms:
+                    if not hasattr(atom, "metadata") or atom.metadata is None:
+                        atom.metadata = {}
+                    atom.metadata["residue_name"] = "NAP"
         # create a Chlorine ion
         self.chlorine_ion = Molecule.from_smiles("[Cl-]")
         # find out the number of sodium ions in the system
         self.n_chlorine_ion = len(
             [m for m in self.solvated_topology.molecules if m.to_smiles() == "[Cl-]"]
         )
+        # Assign residue name for atoms in Cl ion
+        for molecule in self.solvated_topology.molecules:
+            if molecule.to_smiles() == "[Cl-]":
+                for atom in molecule.atoms:
+                    if not hasattr(atom, "metadata") or atom.metadata is None:
+                        atom.metadata = {}
+                    atom.metadata["residue_name"] = "[Cl-]"
 
     def parameterize(self):
         # TODO test to make sure we use the FF we expect to use
