@@ -1,0 +1,5 @@
+name: openpharmmdflow-openmm
+channels:
+  - conda-forge
+dependencies:
+  - openmm

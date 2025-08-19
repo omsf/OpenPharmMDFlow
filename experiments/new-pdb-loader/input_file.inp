@@ -1,0 +1,9 @@
+tolerance 2.0  # Minimum distance between atoms in different molecules
+filetype pdb # Output file format
+output packed_proteins.pdb # Output file name
+
+# Define the first protein
+structure lai_2022_mab3_nogly_ph6_packmol-processed.pdb
+  number 2
+  inside box 0. 0. 0. 1000. 1000. 1000.  # Place protein1 inside a box of size 50x50x50
+end structure
