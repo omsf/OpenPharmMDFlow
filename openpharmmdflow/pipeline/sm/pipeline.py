@@ -90,13 +90,19 @@ class SmallMoleculePipeline:
     def solvate(self):
         # Check if solvate configuration is provided
         if self.solvate_config is None:
-            raise ValueError("solvate_config must be provided to use the solvate() method")
-        
+            raise ValueError(
+                "solvate_config must be provided to use the solvate() method"
+            )
+
         # Solvate the box
         # If the topology already has box vectors defined (from pack step),
         # we must set padding=None to avoid PACKMOLValueError
-        padding = None if self.topology.box_vectors is not None else self.solvate_config.padding
-        
+        padding = (
+            None
+            if self.topology.box_vectors is not None
+            else self.solvate_config.padding
+        )
+
         self.solvated_topology = solvate_topology(
             self.topology,
             nacl_conc=self.solvate_config.nacl_conc,
