@@ -10,10 +10,11 @@ def _cast_topology_positions_to_float64(topology):
             molecule._conformers[i] = conformer.astype('float64')
     return topology
 
+
 def write_residue_names(pipeline, molecule_to_resname=None):
     """
     Assign residue names to atoms in molecules for proper PDB output.
-    
+
     Parameters
     ----------
     pipeline : SmallMoleculePipeline
@@ -21,7 +22,7 @@ def write_residue_names(pipeline, molecule_to_resname=None):
     molecule_to_resname : dict, optional
         Mapping of molecule names to residue names. If None, uses first 3 letters uppercase.
         Standard names: water -> "WAT", sodium -> "SOD", chloride -> "CLA"
-        
+
     Example
     -------
     molecule_to_resname = {
