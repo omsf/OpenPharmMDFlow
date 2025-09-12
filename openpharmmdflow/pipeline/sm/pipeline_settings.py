@@ -87,7 +87,8 @@ class SmallMoleculePipelineParameterizeConfig(BaseModel):
 
 
 class SmallMoleculePipelineSimulateConfig(BaseModel):
-    pdb_stride: int = 500
+    save_frequency_steps: int = 500
+    save_data_frequency_steps: int = 10
     trajectory_name: str = "trajectory.pdb"
     temp_k: float = 300
     time_step_fs: int = 1

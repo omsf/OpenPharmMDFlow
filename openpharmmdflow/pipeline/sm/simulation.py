@@ -16,7 +16,8 @@ def create_simulation(
     simulate_config,
     interchange: Interchange,
 ) -> openmm.app.Simulation:
-    pdb_stride = simulate_config.pdb_stride
+    save_frequency_steps = simulate_config.save_frequency_steps
+    save_data_frequency_steps = simulate_config.save_data_frequency_steps
     trajectory_name = simulate_config.trajectory_name
     temp = simulate_config.temp_k
     time_step_fs = simulate_config.time_step_fs
@@ -48,10 +49,10 @@ def create_simulation(
     simulation.context.setVelocitiesToTemperature(temp * openmm.unit.kelvin)
     simulation.context.computeVirtualSites()
 
-    pdb_reporter = openmm.app.PDBReporter(trajectory_name, pdb_stride)
+    pdb_reporter = openmm.app.PDBReporter(trajectory_name, save_frequency_steps)
     state_data_reporter = openmm.app.StateDataReporter(
         "data.csv",
-        10,
+        save_data_frequency_steps,
         step=True,
         potentialEnergy=True,
         temperature=True,
