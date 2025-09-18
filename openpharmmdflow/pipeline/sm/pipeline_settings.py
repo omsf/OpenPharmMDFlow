@@ -90,22 +90,26 @@ class SmallMoleculePipelineSimulateConfig(BaseModel):
     # Basic simulation parameters
     save_frequency_steps: int = 500
     save_data_frequency_steps: int = 10
-    simulation_chunk_step_size: int = 250  # Controls console output frequency and simulation loop chunking
+    simulation_chunk_step_size: int = (
+        250  # Controls console output frequency and simulation loop chunking
+    )
     n_steps: int = 5000
     temp_k: float = 300
     time_step_fs: int = 1
     pressure_bar: float = 1
     ensemble: str = "npt"
-    
+
     # Output directory and file configuration
     output_directory: str = "."
-    
+
     # Enhanced trajectory options for optimized output
     trajectory_format: str = "dcd"  # Primary format: 'dcd', 'h5', 'pdb'
     enable_hdf5: bool = True  # Try to enable HDF5 if MDTraj available
     pdb_frequency_multiplier: int = 100  # PDB saved every N * save_frequency_steps
-    checkpoint_frequency_multiplier: int = 10  # Checkpoint every N * save_frequency_steps
-    
+    checkpoint_frequency_multiplier: int = (
+        10  # Checkpoint every N * save_frequency_steps
+    )
+
     # Legacy compatibility field
     trajectory_name: str = "trajectory.pdb"
 
