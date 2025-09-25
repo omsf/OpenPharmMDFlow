@@ -141,7 +141,7 @@ def setup_trajectory_reporters(simulation, simulate_config, output_directory):
             print(f"   ✅ HDF5 trajectory: {h5_file} (analysis-optimized)")
     except ImportError:
         print("   ⚠️ MDTraj not available - HDF5 trajectory disabled")
-        print("   💡 Install with: pip install mdtraj")
+        print("   💡 Install with: micromamba install -c conda-forge mdtraj")
 
     # 5. PDB Reporter (Sparse frames for visualization only)
     pdb_file = os.path.join(output_directory, "trajectory_vis.pdb")
