@@ -36,7 +36,7 @@ def create_simulation(
     # Use LangevinMiddleIntegrator (more stable than LangevinIntegrator)
     integrator = openmm.LangevinMiddleIntegrator(
         temp * openmm.unit.kelvin,
-        1.0 / openmm.unit.picosecond,  # Friction coefficient
+        time_step_fs / openmm.unit.picosecond,  # Friction coefficient
         time_step_fs * openmm.unit.femtoseconds,
     )
 
