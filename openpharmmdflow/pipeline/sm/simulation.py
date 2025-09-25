@@ -28,7 +28,7 @@ def create_simulation(
     temp = simulate_config.temp_k
     time_step_fs = simulate_config.time_step_fs
     pressure_bar = simulate_config.pressure_bar
-    output_directory = getattr(simulate_config, "output_directory", ".")
+    output_directory = simulate_config.output_directory
 
     # Ensure output directory exists
     os.makedirs(output_directory, exist_ok=True)
