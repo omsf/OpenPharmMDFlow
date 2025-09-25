@@ -23,7 +23,7 @@ def write_residue_names(pipeline, molecule_to_resname=None):
         The pipeline object with loaded topology (works with both topology and solvated_topology)
     molecule_to_resname : dict, optional
         Mapping of molecule names to residue names. If None, uses first 3 letters uppercase.
-        Standard names: water -> "WAT", sodium -> "SOD", chloride -> "CLA"
+        Standard names: water -> "WAT", sodium -> "NA", chloride -> "CL"
 
     Example
     -------
@@ -58,8 +58,8 @@ def write_residue_names(pipeline, molecule_to_resname=None):
             # Default residue names for common molecules
             default_names = {
                 "[H][O][H]": "WAT",  # Water
-                "[Na+]": "SOD",  # Sodium ion
-                "[Cl-]": "CLA",  # Chloride ion
+                "[Na+]": "NA",  # Sodium ion
+                "[Cl-]": "CL",  # Chloride ion
             }
 
             # Determine residue name
