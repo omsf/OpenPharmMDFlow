@@ -88,7 +88,7 @@ class SmallMoleculePipeline:
                 mass_density=self.pack_config.target_density,
                 box_shape=self.pack_config.box_shape,
             )
-        
+
         # Apply residue names immediately after packing (BEFORE solvation)
         # This ensures water molecules get UNK residue names during solvation
         # Automatically generate residue names from molecule names in config
@@ -98,7 +98,7 @@ class SmallMoleculePipeline:
             # Convert to uppercase for consistency
             residue_name = mol_name[:3].upper()
             molecule_to_resname[mol_name] = residue_name
-        
+
         write_residue_names(self, molecule_to_resname)
 
     def solvate(self):
@@ -150,10 +150,10 @@ class SmallMoleculePipeline:
         self.n_chlorine_ion = len(
             [m for m in self.solvated_topology.molecules if m.to_smiles() == "[Cl-]"]
         )
-        
+
         # Apply residue names to water and ions added during solvation
         # The write_residue_names function will automatically detect and name:
-        # - Water molecules as "WAT" 
+        # - Water molecules as "WAT"
         # - Sodium ions as "SOD"
         # - Chloride ions as "CLA"
         # based on their SMILES patterns
@@ -194,29 +194,33 @@ class SmallMoleculePipeline:
     def simulate(self):
         """Run MD simulation with enhanced trajectory output and performance monitoring"""
         print("🚀 Setting up MD simulation...")
-        
+
         # Create simulation with optimized reporters
         self.simulation = create_simulation(self.simulate_config, self.interchange)
-        
+
         # Run simulation and capture performance metrics
         elapsed_time, ns_per_day = run_simulation(self.simulate_config, self.simulation)
-        
+
         # Store performance metrics
         self.simulation_performance = {
-            'elapsed_time': elapsed_time,
-            'ns_per_day': ns_per_day,
-            'n_steps': self.simulate_config.n_steps,
-            'timestep_fs': self.simulate_config.time_step_fs,
-            'total_atoms': self.interchange.topology.n_atoms if hasattr(self.interchange.topology, 'n_atoms') else 0
+            "elapsed_time": elapsed_time,
+            "ns_per_day": ns_per_day,
+            "n_steps": self.simulate_config.n_steps,
+            "timestep_fs": self.simulate_config.time_step_fs,
+            "total_atoms": (
+                self.interchange.topology.n_atoms
+                if hasattr(self.interchange.topology, "n_atoms")
+                else 0
+            ),
         }
-        
+
         print(f"✅ Simulation completed successfully!")
         print(f"   Performance: {ns_per_day:.2f} ns/day")
         print(f"   Output directory: {self.simulate_config.output_directory}")
 
     def get_simulation_performance(self):
         """Get simulation performance metrics"""
-        if hasattr(self, 'simulation_performance'):
+        if hasattr(self, "simulation_performance"):
             return self.simulation_performance
         else:
             return None
