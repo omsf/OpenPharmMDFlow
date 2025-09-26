@@ -42,7 +42,7 @@ $$$$
             ),
             "parameterize_config": SmallMoleculePipelineParameterizeConfig(),
             "simulate_config": SmallMoleculePipelineSimulateConfig(),
-            "analyize_config": SmallMoleculePipelineAnalyzeConfig(),
+            "analyze_config": SmallMoleculePipelineAnalyzeConfig(),
             "solvate_config": SmallMoleculePipelineSolvateConfig(
                 nacl_conc=Quantity(0.00, "mole / liter"),
                 padding=Quantity(1.2, "nanometer"),  # This should get set to None
@@ -104,7 +104,7 @@ $$$$
             ),
             "parameterize_config": SmallMoleculePipelineParameterizeConfig(),
             "simulate_config": SmallMoleculePipelineSimulateConfig(),
-            "analyize_config": SmallMoleculePipelineAnalyzeConfig(),
+            "analyze_config": SmallMoleculePipelineAnalyzeConfig(),
             "solvate_config": None,  # Explicitly set to None
         }
 
