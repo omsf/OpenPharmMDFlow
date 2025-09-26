@@ -147,7 +147,9 @@ class SmallMoleculePipeline:
         if not isinstance(self.force_field, ForceField):
             self.force_field = ForceField(self.force_field)
         self.components_intrcg = Interchange.from_smirnoff(
-            force_field=self.force_field, topology=self.topology, charge_from_molecules=charge_from_molecules
+            force_field=self.force_field,
+            topology=self.topology,
+            charge_from_molecules=charge_from_molecules,
         )
         # if there are waters built during the solvate step combine the components topology
         # with the water topology
