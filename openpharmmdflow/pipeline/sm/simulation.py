@@ -160,6 +160,7 @@ def setup_trajectory_reporters(simulation, simulate_config, output_directory):
 def run_simulation(
     simulate_config,
     simulation: openmm.app.Simulation,
+    resume: bool = False,
 ):
     """Run simulation following OpenMM best practices with improved monitoring"""
     n_steps = simulate_config.n_steps
@@ -172,23 +173,23 @@ def run_simulation(
 
     print("🚀 Starting simulation setup...")
     start_time = time.time()
+    if not resume:
+        # Energy minimization
+        print("⚡ Minimizing energy...")
+        try:
+            simulation.minimizeEnergy(maxIterations=1000)
+            minimized_state = simulation.context.getState(getEnergy=True)
+            pe_initial = minimized_state.getPotentialEnergy().value_in_unit(
+                openmm.unit.kilojoules_per_mole
+            )
+            print(f"✅ Energy minimization completed: PE = {pe_initial:.1f} kJ/mol")
+        except Exception as e:
+            print(f"⚠️ Energy minimization failed: {e}")
+            print("   Continuing with original structure...")
 
-    # Energy minimization
-    print("⚡ Minimizing energy...")
-    try:
-        simulation.minimizeEnergy(maxIterations=1000)
-        minimized_state = simulation.context.getState(getEnergy=True)
-        pe_initial = minimized_state.getPotentialEnergy().value_in_unit(
-            openmm.unit.kilojoules_per_mole
-        )
-        print(f"✅ Energy minimization completed: PE = {pe_initial:.1f} kJ/mol")
-    except Exception as e:
-        print(f"⚠️ Energy minimization failed: {e}")
-        print("   Continuing with original structure...")
-
-    # Set initial velocities
-    simulation.context.setVelocitiesToTemperature(temp_k * openmm.unit.kelvin)
-    print(f"🌡️ Initial velocities set to {temp_k} K")
+        # Set initial velocities
+        simulation.context.setVelocitiesToTemperature(temp_k * openmm.unit.kelvin)
+        print(f"🌡️ Initial velocities set to {temp_k} K")
 
     # Compute virtual sites if present
     simulation.context.computeVirtualSites()
@@ -297,4 +298,4 @@ def resume_simulation(
     print(f"   Resumed state: PE = {pe}")
 
     # Continue simulation
-    run_simulation(simulate_config, simulation)
+    run_simulation(simulate_config, simulation, resume=True)
