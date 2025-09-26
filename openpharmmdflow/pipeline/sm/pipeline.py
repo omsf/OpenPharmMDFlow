@@ -42,6 +42,10 @@ class SmallMoleculePipeline:
         for input in self.inputs:
             mol = load_file(input.path)
             mol.name = input.name
+            # If it is a openff mol, making a conformer will give us 3D cords
+            # we can use later, needed for GAFF support
+            if isinstance(mol, Molecule):
+                mol.generate_conformers(n_conformers=1)
             self.loaded_mols[mol.name] = mol
 
     def prep(self):
@@ -124,36 +128,111 @@ class SmallMoleculePipeline:
         )
 
     def parameterize(self):
-        # TODO test to make sure we use the FF we expect to use
-        # Use bespoke ff if we made one
-        self.force_field = (
-            self.bespoke_ff if self.bespoke_ff else self.parameterize_config.force_field
-        )
-        # Now if force_field is a path or string, we need to turn it into a ForceField object
-        if not isinstance(self.force_field, ForceField):
-            self.force_field = ForceField(self.force_field)
-        self.components_intrcg = Interchange.from_smirnoff(
-            force_field=self.force_field, topology=self.topology
-        )
-        # if there are waters built during the solvate step combine the components topology
-        # with the water topology
-        # TODO better way to check if we ran solvate?
-        # TODO let user specify ff for solute
-        if hasattr(self, "water"):
-            self.water_intrcg = Interchange.from_smirnoff(
-                force_field=ForceField("openff_unconstrained-2.0.0.offxml"),
-                topology=[self.water] * self.n_water
-                + [self.sodium_ion] * self.n_sodium_ion
-                + [self.chlorine_ion] * self.n_chlorine_ion,
-            )
-            # combine is still experimental
-            os.environ["INTERCHANGE_EXPERIMENTAL"] = "1"
-            self.interchange = self.components_intrcg.combine(self.water_intrcg)
-            self.interchange.positions = self.solvated_topology.get_positions()
-            self.interchange.box = self.solvated_topology.box_vectors
+        # We can either use a openmmforcefield suported FF or a openff supported one
 
+        # GAFF path
+        if self.parameterize_config.force_field in [
+            "gaff-1.4",
+            "gaff-1.8",
+            "gaff-1.81",
+            "gaff-2.1",
+            "gaff-2.11",
+        ]:
+            # Keep these imports lazy since they are only needed with gaff
+            # if len(self.loaded_mols) > 1:
+            #    raise RuntimeError("Can't use GAFF with more than one mol yet")
+            import openmm.app
+            from openmm.unit import Quantity
+            from openmm.unit import angstrom
+            from openmm.unit import nanometer
+            from openmmforcefields.generators import GAFFTemplateGenerator
+
+            gaff = GAFFTemplateGenerator(
+                molecules=list(self.loaded_mols.values()),
+                forcefield=self.parameterize_config.force_field,
+            )
+            forcefield_gaff = openmm.app.ForceField()
+            forcefield_gaff.registerTemplateGenerator(gaff.generator)
+
+            # This will need to be modified to support more than one mol
+            # topology = list(self.loaded_mols.values())[0].to_topology()
+            # topology.box_vectors = Quantity([4, 4, 4], unit.nanometer)
+
+            system_gaff = forcefield_gaff.createSystem(
+                topology=self.topology.to_openmm(),
+                nonbondedMethod=openmm.app.PME,
+                # Match interchange default
+                nonbondedCutoff=Quantity(value=0.9, unit=nanometer),
+                # SwitchingFunctionMismatchError: Switching distance(s) do not match. Found 0.09999999999999998 nanometer and 1.0 angstrom.
+                # switchDistance=Quantity(value=0.8, unit=nanometer),
+                # SwitchingFunctionMismatchError: Switching distance(s) do not match. Found 0.8 nanometer and 1.0 angstrom.
+                # switchDistance=Quantity(value=1.0, unit=angstrom)
+            )
+            os.environ["INTERCHANGE_EXPERIMENTAL"] = "1"
+
+            # This will need to be modified to support more than one mol
+            self.components_intrcg = Interchange.from_openmm(
+                topology=self.topology.to_openmm(),
+                system=system_gaff,
+                positions=self.topology.get_positions().to_openmm(),
+            )
+            print("it worked")
+            if hasattr(self, "water"):
+                self.water_intrcg = Interchange.from_smirnoff(
+                    force_field=ForceField("openff_unconstrained-2.2.1.offxml"),
+                    topology=[self.water] * self.n_water
+                    + [self.sodium_ion] * self.n_sodium_ion
+                    + [self.chlorine_ion] * self.n_chlorine_ion,
+                )
+                # combine is still experimental
+                os.environ["INTERCHANGE_EXPERIMENTAL"] = "1"
+                # Match interchange default
+                from openff.units import unit as off_unit
+
+                self.components_intrcg.collections["vdW"].switch_width = (
+                    off_unit.Quantity(1.0, off_unit.angstrom)
+                )
+                self.interchange = self.components_intrcg.combine(self.water_intrcg)
+                self.interchange.positions = self.solvated_topology.get_positions()
+                self.interchange.box = self.solvated_topology.box_vectors
+
+            else:
+                self.interchange = self.components_intrcg
+
+        # OpenFF XML FF path
         else:
-            self.interchange = self.components_intrcg
+            # TODO test to make sure we use the FF we expect to use
+            # Use bespoke ff if we made one
+            self.force_field = (
+                self.bespoke_ff
+                if self.bespoke_ff
+                else self.parameterize_config.force_field
+            )
+            # Now if force_field is a path or string, we need to turn it into a ForceField object
+            if not isinstance(self.force_field, ForceField):
+                self.force_field = ForceField(self.force_field)
+            self.components_intrcg = Interchange.from_smirnoff(
+                force_field=self.force_field, topology=self.topology
+            )
+            # if there are waters built during the solvate step combine the components topology
+            # with the water topology
+            # TODO better way to check if we ran solvate?
+            # TODO let user specify ff for solute
+            if hasattr(self, "water"):
+                self.water_intrcg = Interchange.from_smirnoff(
+                    force_field=ForceField("openff_unconstrained-2.0.0.offxml"),
+                    topology=[self.water] * self.n_water
+                    + [self.sodium_ion] * self.n_sodium_ion
+                    + [self.chlorine_ion] * self.n_chlorine_ion,
+                )
+                # combine is still experimental
+                os.environ["INTERCHANGE_EXPERIMENTAL"] = "1"
+                self.interchange = self.components_intrcg.combine(self.water_intrcg)
+                self.interchange.positions = self.solvated_topology.get_positions()
+                self.interchange.box = self.solvated_topology.box_vectors
+
+            else:
+                self.interchange = self.components_intrcg
 
     def simulate(self):
         self.simulation = create_simulation(self.simulate_config, self.interchange)
