@@ -14,6 +14,7 @@ from openpharmmdflow.io.load import load_file
 from openpharmmdflow.pipeline.sm.pipeline_settings import SmallMoleculePipelineConfig
 from openpharmmdflow.pipeline.sm.simulation import create_simulation
 from openpharmmdflow.pipeline.sm.simulation import run_simulation
+from openpharmmdflow.pipeline.sm.utils import write_residue_names
 
 # TODO: Use snakemake to manage pipeline?
 # TODO: Use decorators for DAG/deps?
@@ -35,6 +36,7 @@ class SmallMoleculePipeline:
         self.parameterize_config = config.parameterize_config
         self.bespoke_ff = None
         self.simulate_config = config.simulate_config
+        self.analyze_config = config.analyze_config
 
     def load(self):
         # TODO raise error if duplcate name
@@ -92,12 +94,36 @@ class SmallMoleculePipeline:
                 box_shape=self.pack_config.box_shape,
             )
 
+        # Apply residue names immediately after packing (BEFORE solvation)
+        # This ensures water molecules get UNK residue names during solvation
+        # Automatically generate residue names from molecule names in config
+        molecule_to_resname = {}
+        for mol_name in self.pack_config.molecule_names:
+            # Use first 3 characters of molecule name as residue name (PDB standard)
+            # Convert to uppercase for consistency
+            residue_name = mol_name[:3].upper()
+            molecule_to_resname[mol_name] = residue_name
+
+        write_residue_names(self, molecule_to_resname)
+
     def solvate(self):
+        # Check if solvate configuration is provided
+        if self.solvate_config is None:
+            raise ValueError(
+                "solvate_config must be provided to use the solvate() method"
+            )
+
         # Solvate the box
+        # If the topology already has box vectors defined (from pack step),
+        # we must set padding=None to avoid PACKMOLValueError
+        padding = (
+            0 if self.topology.box_vectors is not None else self.solvate_config.padding
+        )
+
         self.solvated_topology = solvate_topology(
             self.topology,
             nacl_conc=self.solvate_config.nacl_conc,
-            padding=self.solvate_config.padding,
+            padding=padding,
             box_shape=self.solvate_config.box_shape,
             target_density=self.solvate_config.target_density,
             tolerance=self.solvate_config.tolerance,
@@ -127,6 +153,14 @@ class SmallMoleculePipeline:
         self.n_chlorine_ion = len(
             [m for m in self.solvated_topology.molecules if m.to_smiles() == "[Cl-]"]
         )
+
+        # Apply residue names to water and ions added during solvation
+        # The write_residue_names function will automatically detect and name:
+        # - Water molecules as "WAT"
+        # - Sodium ions as "SOD"
+        # - Chloride ions as "CLA"
+        # based on their SMILES patterns
+        write_residue_names(self)
 
     def parameterize(self):
         # TODO test to make sure we use the FF we expect to use
@@ -172,9 +206,39 @@ class SmallMoleculePipeline:
             self.interchange = self.components_intrcg
 
     def simulate(self):
-        self.simulation = create_simulation(self.simulate_config, self.interchange)
-        run_simulation(self.simulate_config, self.simulation)
+        """Run MD simulation with enhanced trajectory output and performance monitoring"""
+        print("🚀 Setting up MD simulation...")
 
-    def analyize(self):
+        # Create simulation with optimized reporters
+        self.simulation = create_simulation(self.simulate_config, self.interchange)
+
+        # Run simulation and capture performance metrics
+        elapsed_time, ns_per_day = run_simulation(self.simulate_config, self.simulation)
+
+        # Store performance metrics
+        self.simulation_performance = {
+            "elapsed_time": elapsed_time,
+            "ns_per_day": ns_per_day,
+            "n_steps": self.simulate_config.n_steps,
+            "timestep_fs": self.simulate_config.time_step_fs,
+            "total_atoms": (
+                self.interchange.topology.n_atoms
+                if hasattr(self.interchange.topology, "n_atoms")
+                else 0
+            ),
+        }
+
+        print(f"✅ Simulation completed successfully!")
+        print(f"   Performance: {ns_per_day:.2f} ns/day")
+        print(f"   Output directory: {self.simulate_config.output_directory}")
+
+    def get_simulation_performance(self):
+        """Get simulation performance metrics"""
+        if hasattr(self, "simulation_performance"):
+            return self.simulation_performance
+        else:
+            return None
+
+    def analyze(self):
         # run analysis here
         pass
