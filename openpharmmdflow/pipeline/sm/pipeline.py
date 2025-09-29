@@ -117,9 +117,7 @@ class SmallMoleculePipeline:
         # If the topology already has box vectors defined (from pack step),
         # we must set padding=None to avoid PACKMOLValueError
         padding = (
-            0
-            if self.topology.box_vectors is not None
-            else self.solvate_config.padding
+            0 if self.topology.box_vectors is not None else self.solvate_config.padding
         )
 
         self.solvated_topology = solvate_topology(
