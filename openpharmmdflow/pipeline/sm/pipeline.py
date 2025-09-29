@@ -40,7 +40,12 @@ class SmallMoleculePipeline:
         # TODO raise error if duplcate name
         self.loaded_mols = {}
         for input in self.inputs:
-            mol = load_file(input.path)
+            # Check to see if we have an openff mol
+            if isinstance(input, Molecule):
+                mol = input
+            # If we don't, use file loading
+            else:
+                mol = load_file(input.path)
             mol.name = input.name
             self.loaded_mols[mol.name] = mol
 
@@ -129,11 +134,22 @@ class SmallMoleculePipeline:
         self.force_field = (
             self.bespoke_ff if self.bespoke_ff else self.parameterize_config.force_field
         )
+        # Now we want to check if our inputs have partial charges, if they do, we want to use
+        # them here.
+        charge_from_molecules = []
+        for mol in self.loaded_mols.values():
+            # Since self.loaded_mols is a dict with the mol name as the key, we don't need to
+            # worry about dupes
+            if mol.partial_charges is not None:
+                charge_from_molecules.append(mol)
+
         # Now if force_field is a path or string, we need to turn it into a ForceField object
         if not isinstance(self.force_field, ForceField):
             self.force_field = ForceField(self.force_field)
         self.components_intrcg = Interchange.from_smirnoff(
-            force_field=self.force_field, topology=self.topology
+            force_field=self.force_field,
+            topology=self.topology,
+            charge_from_molecules=charge_from_molecules,
         )
         # if there are waters built during the solvate step combine the components topology
         # with the water topology

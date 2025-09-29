@@ -11,6 +11,7 @@ from openff.interchange.components._packmol import UNIT_CUBE
 from openff.models.types import FloatQuantity
 from openff.models.types import Quantity
 from openff.toolkit import ForceField
+from openff.toolkit import Molecule
 from pydantic.v1 import BaseModel
 
 
@@ -101,10 +102,18 @@ class SmallMoleculePipelineAnalyizeConfig(BaseModel):
 
 class SmallMoleculePipelineConfig(BaseModel):
     work_dir: Path
-    inputs: list[SmallMoleculePipelineInputConfig] | SmallMoleculePipelineInputConfig
+    inputs: (
+        list[SmallMoleculePipelineInputConfig]
+        | SmallMoleculePipelineInputConfig
+        | Molecule
+        | list[Molecule]
+    )
     prep_config: SmallMoleculePipelinePrepConfig | None
     pack_config: SmallMoleculePipelinePackConfig
     solvate_config: SmallMoleculePipelineSolvateConfig | None
     parameterize_config: SmallMoleculePipelineParameterizeConfig
     simulate_config: SmallMoleculePipelineSimulateConfig
     analyize_config: SmallMoleculePipelineAnalyizeConfig
+
+    class Config:
+        arbitrary_types_allowed = True
