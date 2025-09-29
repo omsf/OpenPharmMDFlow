@@ -37,8 +37,8 @@ $$$$
             ],
             "pack_config": SmallMoleculePipelinePackConfig(
                 molecule_names=["test_mol"],
-                number_of_copies=[1],
-                target_density=0.1,
+                number_of_copies=[10],
+                target_density=0.01,
             ),
             "parameterize_config": SmallMoleculePipelineParameterizeConfig(),
             "simulate_config": SmallMoleculePipelineSimulateConfig(),
@@ -47,7 +47,7 @@ $$$$
                 nacl_conc=Quantity(0.00, "mole / liter"),
                 padding=Quantity(1.2, "nanometer"),  # This should get set to None
                 box_shape=UNIT_CUBE,
-                target_density=Quantity(0.9, "gram / milliliter"),
+                target_density=Quantity(2.0, "gram / milliliter"),
                 tolerance=Quantity(2.0, "angstrom"),
             ),
         }
