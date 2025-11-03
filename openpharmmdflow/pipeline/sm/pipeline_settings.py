@@ -8,8 +8,8 @@ import numpy as np
 from numpy.typing import NDArray
 from openff.interchange.components._packmol import RHOMBIC_DODECAHEDRON
 from openff.interchange.components._packmol import UNIT_CUBE
-from openff.models.types import FloatQuantity
-from openff.models.types import Quantity
+from openpharmmdflow.vendor.openff.models.types import FloatQuantity
+from openpharmmdflow.vendor.openff.models.types import Quantity
 from openff.toolkit import ForceField
 from openff.toolkit import Molecule
 from pydantic.v1 import BaseModel
@@ -71,7 +71,7 @@ class SmallMoleculePipelineSolvateConfig(BaseModel):
     # for solvating
     # TODO fix this so the defaults work
     nacl_conc: Quantity = (Quantity(0.1, "mole / liter"),)
-    padding: Quantity = (Quantity(1.2, "nanometer"),)
+    padding: None | Quantity = (None,)
     box_shape: np.ndarray = (RHOMBIC_DODECAHEDRON,)
     target_density: Quantity = (Quantity(0.9, "gram / milliliter"),)
     tolerance: Quantity = (Quantity(2.0, "angstrom"),)
