@@ -4,7 +4,8 @@ from typing import Any
 from openff.units import Quantity
 from pydantic.v1 import BaseModel
 
-from .types import custom_quantity_encoder, json_loader
+from .types import custom_quantity_encoder
+from .types import json_loader
 
 
 class DefaultModel(BaseModel):
