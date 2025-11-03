@@ -2,8 +2,7 @@ channels:
   - conda-forge
 dependencies:
   # core
-  - openff-interchange >=0.3.18
-  - openff-models
+  - openff-interchange >=0.4.8
   - pooch
   - openff-bespokefit
   - xtb-python
