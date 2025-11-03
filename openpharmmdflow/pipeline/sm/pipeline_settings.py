@@ -8,11 +8,12 @@ import numpy as np
 from numpy.typing import NDArray
 from openff.interchange.components._packmol import RHOMBIC_DODECAHEDRON
 from openff.interchange.components._packmol import UNIT_CUBE
-from openpharmmdflow.vendor.openff.models.types import FloatQuantity
-from openpharmmdflow.vendor.openff.models.types import Quantity
 from openff.toolkit import ForceField
 from openff.toolkit import Molecule
 from pydantic.v1 import BaseModel
+
+from openpharmmdflow.vendor.openff.models.types import FloatQuantity
+from openpharmmdflow.vendor.openff.models.types import Quantity
 
 
 class SmallMoleculePipelineInputConfig(BaseModel):
