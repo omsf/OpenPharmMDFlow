@@ -11,6 +11,7 @@ from openff.interchange.components._packmol import UNIT_CUBE
 from openff.models.types import FloatQuantity
 from openff.models.types import Quantity
 from openff.toolkit import ForceField
+from openff.toolkit import Molecule
 from pydantic.v1 import BaseModel
 
 
@@ -87,24 +88,51 @@ class SmallMoleculePipelineParameterizeConfig(BaseModel):
 
 
 class SmallMoleculePipelineSimulateConfig(BaseModel):
-    pdb_stride: int = 500
-    trajectory_name: str = "trajectory.pdb"
+    # Basic simulation parameters
+    save_frequency_steps: int = 500
+    save_data_frequency_steps: int = 10
+    simulation_chunk_step_size: int = (
+        250  # Controls console output frequency and simulation loop chunking
+    )
+    n_steps: int = 5000
     temp_k: float = 300
     time_step_fs: int = 1
     pressure_bar: float = 1
-    n_steps: int = 5000
+    ensemble: str = "npt"
+
+    # Output directory and file configuration
+    output_directory: str = "."
+
+    # Enhanced trajectory options for optimized output
+    trajectory_format: str = "dcd"  # Primary format: 'dcd', 'h5', 'pdb'
+    enable_hdf5: bool = True  # Try to enable HDF5 if MDTraj available
+    pdb_frequency_multiplier: int = 100  # PDB saved every N * save_frequency_steps
+    checkpoint_frequency_multiplier: int = (
+        10  # Checkpoint every N * save_frequency_steps
+    )
+
+    # Legacy compatibility field
+    trajectory_name: str = "trajectory.pdb"
 
 
-class SmallMoleculePipelineAnalyizeConfig(BaseModel):
+class SmallMoleculePipelineAnalyzeConfig(BaseModel):
     pass
 
 
 class SmallMoleculePipelineConfig(BaseModel):
     work_dir: Path
-    inputs: list[SmallMoleculePipelineInputConfig] | SmallMoleculePipelineInputConfig
+    inputs: (
+        list[SmallMoleculePipelineInputConfig]
+        | SmallMoleculePipelineInputConfig
+        | Molecule
+        | list[Molecule]
+    )
     prep_config: SmallMoleculePipelinePrepConfig | None
     pack_config: SmallMoleculePipelinePackConfig
     solvate_config: SmallMoleculePipelineSolvateConfig | None
     parameterize_config: SmallMoleculePipelineParameterizeConfig
     simulate_config: SmallMoleculePipelineSimulateConfig
-    analyize_config: SmallMoleculePipelineAnalyizeConfig
+    analyze_config: SmallMoleculePipelineAnalyzeConfig
+
+    class Config:
+        arbitrary_types_allowed = True
