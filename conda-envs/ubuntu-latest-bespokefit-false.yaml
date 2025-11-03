@@ -2,14 +2,11 @@ channels:
   - conda-forge
 dependencies:
   # core
-  - openff-interchange >=0.3.18
-  - openff-models
+  - openff-interchange >=0.4.8
   - apptainer
   - pooch
-  - xtb-python
   # NAGL
-  - openff-nagl-base >=0.5.2
-  - openff-nagl-models >=2025.9.0
+  - openff-nagl >=0.5.4
   # examples
   - nglview
   # docs
