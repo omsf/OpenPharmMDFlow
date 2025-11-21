@@ -47,7 +47,7 @@ $$$$
                 nacl_conc=Quantity(0.00, "mole / liter"),
                 padding=Quantity(1.2, "nanometer"),  # This should get set to None
                 box_shape=UNIT_CUBE,
-                target_density=Quantity(2.0, "gram / milliliter"),
+                target_density=Quantity(0.5, "gram / milliliter"),
                 tolerance=Quantity(2.0, "angstrom"),
             ),
         }
