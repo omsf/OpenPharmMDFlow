@@ -17,20 +17,20 @@ repos:
   - id: debug-statements
   - id: check-ast
 - repo: https://github.com/asottile/pyupgrade
-  rev: v3.20.0
+  rev: v3.21.2
   hooks:
   - id: pyupgrade
     args: [--py311-plus]
 - repo: https://github.com/pre-commit/mirrors-mypy
-  rev: v1.18.2
+  rev: v2.1.0
   hooks:
   - id: mypy
 - repo: https://github.com/psf/black-pre-commit-mirror
-  rev: 25.9.0
+  rev: 26.5.1
   hooks:
   - id: black-jupyter
   - id: black
 - repo: https://github.com/pycqa/isort
-  rev: 6.1.0
+  rev: 9.0.0a3
   hooks:
   - id: isort
